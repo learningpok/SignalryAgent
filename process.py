@@ -46,6 +46,13 @@ def process(posts: list[RawPost]) -> list[SignalItem]:
         if result["priority_score"] <= 0:
             continue
 
+        # Generate recommended action (PRD requirement)
+        recommended_action = _generate_recommended_action(
+            result["signal_type"],
+            result["priority_score"],
+            post.text
+        )
+        
         items.append(
             SignalItem(
                 id=_generate_id(post),
@@ -61,6 +68,7 @@ def process(posts: list[RawPost]) -> list[SignalItem]:
                 business_weight=result["business_weight"],
                 account_tier=result["account_tier"],
                 reasons=result["reasons"],
+                recommended_action=recommended_action,
             )
         )
 
@@ -218,3 +226,117 @@ def _parse_timestamp(ts: str) -> datetime:
 
 def _generate_id(post: RawPost) -> str:
     return hashlib.sha256(f"{post.id}:{post.author}".encode()).hexdigest()[:12]
+
+
+def _generate_recommended_action(signal_type: str, priority_score: float, text: str) -> str:
+    """
+    Generate a recommended action based on signal type and priority
+    
+    PRD Requirement: "Agent proposes a recommended action"
+    """
+    
+    # High priority actions (score > 60)
+    if priority_score > 60:
+        if signal_type == "incident_bug":
+            return "Escalate to engineering immediately"
+        elif signal_type == "feedback_improvement":
+            return "Schedule user interview to understand pain"
+        elif signal_type == "feature_request_use_case":
+            return "Add to feature backlog with high priority"
+        elif signal_type == "launch_update":
+            return "Share internally + monitor engagement"
+        else:
+            return "DM author directly to understand context"
+    
+    # Medium priority actions (40-60)
+    elif priority_score > 40:
+        if signal_type == "incident_bug":
+            return "Add to bug tracker"
+        elif signal_type == "feedback_improvement":
+            return "Add to improvement backlog"
+        elif signal_type == "feature_request_use_case":
+            return "Monitor for recurrence"
+        elif signal_type == "launch_update":
+            return "Track for momentum"
+        else:
+            return "Monitor weekly digest"
+    
+    # Low priority actions (< 40)
+    else:
+        return "Archive - no immediate action needed"
+
+
+def _generate_recommended_action(signal_type: str, priority_score: float, text: str) -> str:
+    """
+    Generate a recommended action based on signal type and priority
+    
+    PRD Requirement: "Agent proposes a recommended action"
+    """
+    
+    # High priority actions (score > 60)
+    if priority_score > 60:
+        if signal_type == "incident_bug":
+            return "Escalate to engineering immediately"
+        elif signal_type == "feedback_improvement":
+            return "Schedule user interview to understand pain"
+        elif signal_type == "feature_request_use_case":
+            return "Add to feature backlog with high priority"
+        elif signal_type == "launch_update":
+            return "Share internally + monitor engagement"
+        else:
+            return "DM author directly to understand context"
+    
+    # Medium priority actions (40-60)
+    elif priority_score > 40:
+        if signal_type == "incident_bug":
+            return "Add to bug tracker"
+        elif signal_type == "feedback_improvement":
+            return "Add to improvement backlog"
+        elif signal_type == "feature_request_use_case":
+            return "Monitor for recurrence"
+        elif signal_type == "launch_update":
+            return "Track for momentum"
+        else:
+            return "Monitor weekly digest"
+    
+    # Low priority actions (< 40)
+    else:
+        return "Archive - no immediate action needed"
+
+
+def _generate_recommended_action(signal_type: str, priority_score: float, text: str) -> str:
+    """
+    Generate a recommended action based on signal type and priority
+    
+    PRD Requirement: "Agent proposes a recommended action"
+    """
+    
+    # High priority actions (score > 60)
+    if priority_score > 60:
+        if signal_type == "incident_bug":
+            return "Escalate to engineering immediately"
+        elif signal_type == "feedback_improvement":
+            return "Schedule user interview to understand pain"
+        elif signal_type == "feature_request_use_case":
+            return "Add to feature backlog with high priority"
+        elif signal_type == "launch_update":
+            return "Share internally + monitor engagement"
+        else:
+            return "DM author directly to understand context"
+    
+    # Medium priority actions (40-60)
+    elif priority_score > 40:
+        if signal_type == "incident_bug":
+            return "Add to bug tracker"
+        elif signal_type == "feedback_improvement":
+            return "Add to improvement backlog"
+        elif signal_type == "feature_request_use_case":
+            return "Monitor for recurrence"
+        elif signal_type == "launch_update":
+            return "Track for momentum"
+        else:
+            return "Monitor weekly digest"
+    
+    # Low priority actions (< 40)
+    else:
+        return "Archive - no immediate action needed"

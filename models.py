@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from datetime import datetime
-
+from typing import List
 
 @dataclass
 class RawPost:
@@ -11,7 +11,6 @@ class RawPost:
     timestamp: str
     likes: int = 0
     reposts: int = 0
-
 
 @dataclass
 class SignalItem:
@@ -34,5 +33,9 @@ class SignalItem:
 
     # Business context
     account_tier: str          # enterprise | growth | standard
-
-    reasons: list[str] = field(default_factory=list)
+    
+    # Explainability
+    reasons: List[str] = field(default_factory=list)
+    
+    # PRD: Recommended action
+    recommended_action: str = "No action recommended"

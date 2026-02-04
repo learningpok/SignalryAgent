@@ -13,6 +13,7 @@ type Signal = {
   reasons: string[];
   text: string;
   timestamp: string;
+  recommended_action: string;
 };
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState<Record<string, 'positive' | 'negative'>>({});
   const [feedbackStatus, setFeedbackStatus] = useState<string | null>(null);
+  const [outcomes, setOutcomes] = useState<Record<string, { acted: boolean; notes: string }>>({});
 
   useEffect(() => {
     fetch("http://localhost:8000/signals")
@@ -53,13 +55,35 @@ export default function Home() {
       });
       
       if (response.ok) {
-        setFeedbackStatus(`✅ Feedback saved: ${type === 'positive' ? 'Relevant' : 'Noise'}`);
-        setTimeout(() => setFeedbackStatus(null), 3000);
+        setFeedbackStatus(`✅ Feedback saved`);
+        setTimeout(() => setFeedbackStatus(null), 2000);
       }
     } catch (err) {
       console.error("Failed to save feedback:", err);
-      setFeedbackStatus("❌ Failed to save feedback");
-      setTimeout(() => setFeedbackStatus(null), 3000);
+    }
+  };
+
+  const handleOutcome = async (signalId: string, acted: boolean, notes: string) => {
+    setOutcomes(prev => ({ ...prev, [signalId]: { acted, notes } }));
+    
+    try {
+      const response = await fetch("http://localhost:8000/outcome", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          signal_id: signalId,
+          acted: acted,
+          response_type: acted ? "follow_up" : "none",
+          notes: notes
+        })
+      });
+      
+      if (response.ok) {
+        setFeedbackStatus(`✅ Outcome logged: ${acted ? 'Acted' : 'Skipped'}`);
+        setTimeout(() => setFeedbackStatus(null), 2000);
+      }
+    } catch (err) {
+      console.error("Failed to save outcome:", err);
     }
   };
 
@@ -130,6 +154,12 @@ export default function Home() {
                   <div className="text-sm text-gray-700 line-clamp-2">
                     {s.text || "No text available"}
                   </div>
+                  
+                  {s.recommended_action && (
+                    <div className="mt-2 text-xs text-indigo-600 font-medium">
+                      💡 {s.recommended_action}
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
@@ -181,6 +211,50 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+
+                {selected.recommended_action && (
+                  <div className="bg-indigo-50 border-2 border-indigo-200 rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">💡</span>
+                      <div className="flex-1">
+                        <div className="font-semibold text-indigo-900 mb-1">
+                          Recommended Action
+                        </div>
+                        <div className="text-sm text-indigo-700">
+                          {selected.recommended_action}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 pt-4 border-t border-indigo-200">
+                      <div className="text-xs font-semibold text-indigo-900 mb-2">
+                        Log Outcome (PRD)
+                      </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleOutcome(selected.id, true, "Action taken")}
+                          className={`flex-1 px-3 py-2 text-sm rounded border-2 transition-all ${
+                            outcomes[selected.id]?.acted
+                              ? 'bg-indigo-500 text-white border-indigo-600'
+                              : 'bg-white text-gray-700 border-gray-300 hover:bg-indigo-50'
+                          }`}
+                        >
+                          ✓ Acted
+                        </button>
+                        <button
+                          onClick={() => handleOutcome(selected.id, false, "No action")}
+                          className={`flex-1 px-3 py-2 text-sm rounded border-2 transition-all ${
+                            outcomes[selected.id] && !outcomes[selected.id].acted
+                              ? 'bg-gray-500 text-white border-gray-600'
+                              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                          }`}
+                        >
+                          ✗ Skipped
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="border rounded-lg p-3 bg-purple-50">
