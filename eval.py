@@ -1,126 +1,105 @@
 #!/usr/bin/env python3
 """
-Evaluation script for signal detection.
-Evaluates signal_type accuracy and priority precision@k.
-
-Usage: python eval.py
+Evaluation script using real human feedback as ground truth
 """
-
 import json
 from pathlib import Path
-
-from ingest import ingest
 from process import process
-from store import init_db, store
+from models import RawPost
 
-DATA_FILE = Path(__file__).parent / "data" / "raw_posts.json"
+def load_eval_set():
+    """Load evaluation set from feedback"""
+    eval_file = Path("data/eval_set_from_feedback.jsonl")
+    
+    if not eval_file.exists():
+        print("❌ No eval set found. Run: python3 export_feedback.py")
+        return []
+    
+    eval_items = []
+    with open(eval_file, 'r') as f:
+        for line in f:
+            eval_items.append(json.loads(line))
+    
+    return eval_items
 
-
-def load_ground_truth() -> dict:
-    """Load expected labels from raw_posts.json."""
-    with open(DATA_FILE) as f:
-        data = json.load(f)
-    return {
-        p["id"]: {
-            "expected_priority": p.get("expected_priority"),
-            "expected_intent": p.get("expected_intent"),
-            "text": p["text"],
-        }
-        for p in data
-    }
-
-
-def run_pipeline():
-    """Run full pipeline and return processed items."""
-    init_db()
-    raw = ingest()
-    items = process(raw)
-    store(items)
-    return items
-
-
-def precision_at_k(items, ground_truth, k: int) -> tuple[float, int]:
-    """Precision@k for expected_priority == 'high'."""
-    top_k = sorted(items, key=lambda x: x.priority_score, reverse=True)[:k]
-    hits = sum(
-        1 for item in top_k
-        if ground_truth.get(item.source_id, {}).get("expected_priority") == "high"
-    )
-    return hits / k if k > 0 else 0.0, hits
-
-
-def signal_type_accuracy(items, ground_truth) -> tuple[float, int, int, list]:
-    """Signal type accuracy against expected_intent."""
-    correct = 0
-    mismatches = []
-
-    for item in items:
-        gt = ground_truth.get(item.source_id, {})
-        expected = gt.get("expected_intent")
-        predicted = item.signal_type
-
-        if expected == predicted:
-            correct += 1
-        elif expected:
-            mismatches.append({
-                "source_id": item.source_id,
-                "text": gt.get("text", item.text)[:70],
-                "expected": expected,
-                "predicted": predicted,
-                "score": item.priority_score,
-            })
-
-    total = len([i for i in items if ground_truth.get(i.source_id, {}).get("expected_intent")])
-    accuracy = correct / total if total > 0 else 0.0
-    return accuracy, correct, total, mismatches
-
-
-def evaluate():
-    """Run evaluation."""
-    print("Running pipeline...")
-    items = run_pipeline()
-    ground_truth = load_ground_truth()
-
-    print(f"\nProcessed {len(items)} items\n")
-
-    # Priority evaluation
-    print("=" * 60)
-    print("PRIORITY RANKING")
-    print("=" * 60)
-
-    p5, h5 = precision_at_k(items, ground_truth, 5)
-    n10 = min(10, len(items))
-    p10, h10 = precision_at_k(items, ground_truth, n10)
-
-    print(f"Precision@5:  {p5:.0%} ({h5}/5)")
-    print(f"Precision@10: {p10:.0%} ({h10}/{n10})")
-
-    print("\nTop 5:")
-    for i, item in enumerate(sorted(items, key=lambda x: x.priority_score, reverse=True)[:5], 1):
-        gt = ground_truth.get(item.source_id, {})
-        exp = gt.get("expected_priority", "?")
-        mark = "✓" if exp == "high" else "✗"
-        print(f"  {i}. [{mark}] {item.source_id} p={item.priority_score:.1f}")
-
-    # Signal type evaluation
-    print("\n" + "=" * 60)
-    print("SIGNAL TYPE ACCURACY")
-    print("=" * 60)
-
-    acc, correct, total, mismatches = signal_type_accuracy(items, ground_truth)
-    print(f"Accuracy: {acc:.0%} ({correct}/{total})")
-
-    print("\nPredictions:")
-    for item in sorted(items, key=lambda x: x.priority_score, reverse=True):
-        gt = ground_truth.get(item.source_id, {})
-        exp = gt.get("expected_intent", "?")
-        mark = "✓" if exp == item.signal_type else "✗"
-        print(f"  [{mark}] {item.source_id}: {item.signal_type}")
-        if exp != item.signal_type and exp != "?":
-            print(f"       expected: {exp}")
-
-    print("\n" + "=" * 60)
-
+def evaluate_precision():
+    """Measure how well we're surfacing what humans marked as relevant"""
+    
+    eval_items = load_eval_set()
+    
+    if not eval_items:
+        return
+    
+    print(f"📊 Evaluating against {len(eval_items)} human-labeled signals\n")
+    
+    # Create RawPosts from eval data
+    raw_posts = []
+    for item in eval_items:
+        raw_post = RawPost(
+            id=item.get('signal_id', 'eval_item'),
+            text=item['text'],
+            author=item['metadata'].get('author', 'unknown'),
+            timestamp='2024-01-01T00:00:00',
+            likes=item['metadata'].get('likes', 0),
+            reposts=item['metadata'].get('reposts', 0)
+        )
+        raw_posts.append(raw_post)
+    
+    # Process all at once
+    signals = process(raw_posts)
+    
+    # Build results with expected values
+    results = []
+    for i, signal in enumerate(signals):
+        results.append({
+            'signal': signal,
+            'expected_priority': eval_items[i]['expected_priority'],
+            'expected_intent': eval_items[i]['expected_intent']
+        })
+    
+    # Sort by priority score
+    results.sort(key=lambda x: x['signal'].priority_score, reverse=True)
+    
+    # Calculate precision@k
+    def precision_at_k(k):
+        top_k = results[:k]
+        relevant = sum(1 for r in top_k if r['expected_priority'] == 'high')
+        return relevant / k if k > 0 else 0
+    
+    # Print results
+    print("🎯 Precision Metrics:")
+    p3 = precision_at_k(3)
+    p5 = precision_at_k(min(5, len(results)))
+    print(f"  Precision@3: {p3:.1%}")
+    print(f"  Precision@5: {p5:.1%}")
+    print()
+    
+    # Show top ranked items
+    print("📈 Top Ranked Signals:")
+    for i, r in enumerate(results[:5], 1):
+        signal = r['signal']
+        expected = r['expected_priority']
+        match = "✅" if expected == "high" else "❌"
+        
+        print(f"\n{i}. Score: {signal.priority_score:.1f} {match}")
+        print(f"   Expected: {expected}")
+        print(f"   Text: {signal.text[:80]}...")
+    
+    # Intent accuracy
+    print("\n\n🎭 Signal Type Accuracy:")
+    correct_intent = sum(1 for r in results if r['signal'].signal_type == r['expected_intent'])
+    total = len(results)
+    print(f"  {correct_intent}/{total} ({correct_intent/total:.1%})")
+    
+    # Show what to tune
+    print("\n\n💡 Calibration Guidance:")
+    if p3 < 0.7:
+        print("  ⚠️  Precision@3 is low - top signals aren't matching your feedback")
+        print("      → Consider adjusting weights in process.py")
+    else:
+        print("  ✅ Precision is good - the system is learning your preferences!")
+    
+    return results
 
 if __name__ == "__main__":
-    evaluate()
+    evaluate_precision()
