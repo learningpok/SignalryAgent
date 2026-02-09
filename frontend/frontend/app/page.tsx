@@ -23,16 +23,16 @@ export default function LandingPage() {
         {/* Hero */}
         <div className="text-center mb-20">
           <h1 className="text-6xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
-            What deserves<br />attention now
+            Your AI agent that turns<br />customer chaos into product clarity.
           </h1>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            AI agent that continuously monitors feedback, detects momentum, and tells you what to prioritize.
+            Signalry reads every ticket, review, and interview so you don't have to. Get actionable insights in minutes, not weeks.
           </p>
           <Link
             href="/app"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl text-base font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
           >
-            Get started
+            Start analyzing feedback free
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -47,8 +47,8 @@ export default function LandingPage() {
               The Problem
             </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
-              Drowning in feedback.<br/>
-              Missing what matters.
+              You're buried in feedback.<br/>
+              Your roadmap is a guessing game.
             </h2>
             
             {/* Pain points */}
@@ -61,9 +61,9 @@ export default function LandingPage() {
                   </svg>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900 mb-1">Signal buried in noise</div>
+                  <div className="font-semibold text-gray-900 mb-1">Feedback lives in 15 different places</div>
                   <div className="text-sm text-gray-600">
-                    Thousands of messages daily. No way to know what's urgent vs. spam.
+                    Support tickets. App reviews. Sales calls. Slack threads. NPS surveys. User interviews. By the time you've collected it all, it's already outdated.
                   </div>
                 </div>
               </div>
@@ -76,9 +76,9 @@ export default function LandingPage() {
                   </svg>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900 mb-1">Reactive, not proactive</div>
+                  <div className="font-semibold text-gray-900 mb-1">Synthesis takes forever (or doesn't happen)</div>
                   <div className="text-sm text-gray-600">
-                    By the time you notice a pattern, it's already a crisis.
+                    You've got a mountain of qualitative data and zero time to analyze it. So you ship based on gut feel, loudest voices, or whatever the CEO saw on Twitter.
                   </div>
                 </div>
               </div>
@@ -91,9 +91,9 @@ export default function LandingPage() {
                   </svg>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900 mb-1">Fragmented across tools</div>
+                  <div className="font-semibold text-gray-900 mb-1">You can't prove why you're building what you're building</div>
                   <div className="text-sm text-gray-600">
-                    Slack, Zendesk, Twitter, Discord, Linear, Intercom... no single view.
+                    Stakeholders want evidence. You've got a spreadsheet full of anecdotes and a Notion doc nobody reads. Good luck defending your roadmap in the next exec review.
                   </div>
                 </div>
               </div>
@@ -115,7 +115,7 @@ export default function LandingPage() {
                 <span className="px-3 py-1.5 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-lg text-xs font-medium shadow-sm">Email</span>
               </div>
               <div className="mt-4 text-sm text-gray-600">
-                → Overwhelm. Context switching. Missed opportunities.
+                → Overwhelm. Context switching. Missed insights.
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ export default function LandingPage() {
               AI Agent Solution
             </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
-              Autonomous signal<br/>detection.
+              Meet your AI agent for<br/>product intelligence.
             </h2>
 
             <div className="bg-gradient-to-br from-orange-100 via-pink-100 to-purple-100 rounded-3xl p-8 relative overflow-hidden">
@@ -148,9 +148,9 @@ export default function LandingPage() {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Step 1: Monitor</div>
-                      <div className="text-sm font-semibold text-gray-900">Continuous aggregation</div>
-                      <div className="text-xs text-gray-600 mt-0.5">24/7 across all sources</div>
+                      <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Step 1: Connect your sources</div>
+                      <div className="text-sm font-semibold text-gray-900">Plug in Intercom, Zendesk, G2, Gong, Slack, and more</div>
+                      <div className="text-xs text-gray-600 mt-0.5">Your agent starts learning immediately</div>
                     </div>
                   </div>
                 </div>
@@ -171,9 +171,9 @@ export default function LandingPage() {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <div className="text-xs font-semibold text-orange-600 uppercase tracking-wide">Step 2: AI Agent</div>
-                      <div className="text-sm font-semibold text-gray-900">Interpret + Detect + Score</div>
-                      <div className="text-xs text-gray-600 mt-0.5">Intent • Momentum • Priority</div>
+                      <div className="text-xs font-semibold text-orange-600 uppercase tracking-wide">Step 2: Your agent analyzes everything</div>
+                      <div className="text-sm font-semibold text-gray-900">Reads, clusters, and synthesizes thousands of data points</div>
+                      <div className="text-xs text-gray-600 mt-0.5">Identifies patterns you'd miss. Surfaces what actually matters.</div>
                     </div>
                   </div>
                 </div>
@@ -194,9 +194,9 @@ export default function LandingPage() {
                       </svg>
                     </div>
                     <div className="flex-1">
-                      <div className="text-xs font-semibold text-green-600 uppercase tracking-wide">Step 3: Recommend</div>
-                      <div className="text-sm font-semibold text-gray-900">Smart action proposals</div>
-                      <div className="text-xs text-gray-600 mt-0.5">Escalate • Interview • Monitor</div>
+                      <div className="text-xs font-semibold text-green-600 uppercase tracking-wide">Step 3: Get prioritized insights on demand</div>
+                      <div className="text-sm font-semibold text-gray-900">Ask questions in plain English. Get answers backed by real user evidence.</div>
+                      <div className="text-xs text-gray-600 mt-0.5">Share reports that make stakeholders say 'wow.'</div>
                     </div>
                   </div>
                 </div>
@@ -227,10 +227,10 @@ export default function LandingPage() {
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Explainable AI
+              Save 20+ hours per week
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              Every priority score shows severity, recurrence, and business impact breakdown.
+              Your agent works 24/7. No more manual tagging, no more spreadsheet wrangling. Reclaim your calendar for actual product work.
             </p>
           </div>
           
@@ -242,10 +242,10 @@ export default function LandingPage() {
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Agentic loops
+              Decisions backed by evidence
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              Continuous monitoring, not dashboards. Detects momentum before it's obvious.
+              Every insight links back to real user quotes. No more 'I think users want X.' Now it's '127 users said X, here's the proof.'
             </p>
           </div>
           
@@ -257,10 +257,10 @@ export default function LandingPage() {
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Context-aware
+              Align your entire team
             </h3>
             <p className="text-sm text-gray-600 leading-relaxed">
-              Learns what matters for your business through outcome tracking.
+              Share living dashboards with engineering, design, and leadership. Everyone sees the same insights. Roadmap debates become agreements.
             </p>
           </div>
         </div>
@@ -271,7 +271,7 @@ export default function LandingPage() {
             href="/app"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl text-base font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
           >
-            Try Signalry
+            Start analyzing feedback free
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
