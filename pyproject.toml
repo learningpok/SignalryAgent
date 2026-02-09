@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "signalry"
+version = "0.1.0"
+description = "Feedback Intelligence Agent — signal detection, not sentiment mining"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+live = ["requests>=2.31", "anthropic>=0.40"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+signalry = "signalry.__main__:main"

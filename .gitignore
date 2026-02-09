@@ -1,13 +1,22 @@
-# Database
-data/signals.db
-
 # Python
 __pycache__/
-*.py[cod]
+*.pyc
+*.pyo
 .venv/
 venv/
+*.egg-info/
+
+# Database
+data/signalry.db
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
 
 # IDE
-.idea/
 .vscode/
-*.swp
+.idea/

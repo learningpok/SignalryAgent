@@ -1,0 +1,217 @@
+{
+  "run_at": "2026-02-05T09:14:27.303927",
+  "counts": {
+    "ingested": 17,
+    "filtered": 16,
+    "classified": 16,
+    "queued": 16,
+    "duplicates_skipped": 0
+  },
+  "momentum": [
+    {
+      "pain": "token utility",
+      "signal_count": 5,
+      "unique_actors": 5,
+      "signals": [
+        {
+          "actor": "cryptobuilder_eth",
+          "text_preview": "Just shipped a token on pump.fun and need a way to track real community sentimen...",
+          "urgency": "medium",
+          "signal_id": "sig_001"
+        },
+        {
+          "actor": "solana_builder",
+          "text_preview": "Shipped our token last week. The hardest part isn't the launch \u2014 it's figuring o...",
+          "urgency": "medium",
+          "signal_id": "sig_007"
+        },
+        {
+          "actor": "memecoin_mike",
+          "text_preview": "Seriously considering building my own token analytics because nothing on the mar...",
+          "urgency": "medium",
+          "signal_id": "sig_011"
+        },
+        {
+          "actor": "token_launcher_v2",
+          "text_preview": "When will pump.fun add real analytics? The current dashboard is useless for unde...",
+          "urgency": "critical",
+          "signal_id": "sig_017"
+        },
+        {
+          "actor": "web3_founder",
+          "text_preview": "Cancelled my Nansen subscription. The token analytics are decent but they comple...",
+          "urgency": "medium",
+          "signal_id": "sig_018"
+        }
+      ]
+    },
+    {
+      "pain": "general feedback",
+      "signal_count": 5,
+      "unique_actors": 5,
+      "signals": [
+        {
+          "actor": "defi_sarah",
+          "text_preview": "Evaluating signal detection tools for our DAO. Comparing Nansen vs Dune vs build...",
+          "urgency": "medium",
+          "signal_id": "sig_002"
+        },
+        {
+          "actor": "tokenlaunch_dev",
+          "text_preview": "Feature request for pump.fun: we need better analytics on which wallets are real...",
+          "urgency": "medium",
+          "signal_id": "sig_004"
+        },
+        {
+          "actor": "crypto_vc_anon",
+          "text_preview": "Looking for signal intelligence tools in the crypto space. Need something that c...",
+          "urgency": "medium",
+          "signal_id": "sig_013"
+        },
+        {
+          "actor": "product_skeptic",
+          "text_preview": "Every 'AI feedback tool' I've tried just does sentiment analysis and calls it in...",
+          "urgency": "medium",
+          "signal_id": "sig_014"
+        },
+        {
+          "actor": "infra_dev",
+          "text_preview": "Shipping a new release of our signal detection SDK. Added support for real-time ...",
+          "urgency": "medium",
+          "signal_id": "sig_019"
+        }
+      ]
+    },
+    {
+      "pain": "reliability/bugs",
+      "signal_count": 5,
+      "unique_actors": 4,
+      "signals": [
+        {
+          "actor": "rug_detector_99",
+          "text_preview": "Another day another rug. When will we have real tools to detect scam tokens BEFO...",
+          "urgency": "medium",
+          "signal_id": "sig_003"
+        },
+        {
+          "actor": "web3_founder",
+          "text_preview": "The scam detection tools are broken. I've been rugged 3 times this month despite...",
+          "urgency": "medium",
+          "signal_id": "sig_008"
+        },
+        {
+          "actor": "enterprise_pm",
+          "text_preview": "Bug report: the momentum detection in our feedback tool keeps flagging random sp...",
+          "urgency": "medium",
+          "signal_id": "sig_012"
+        },
+        {
+          "actor": "defi_sarah",
+          "text_preview": "Update on our signal detection search \u2014 still haven't found anything that handle...",
+          "urgency": "medium",
+          "signal_id": "sig_015"
+        },
+        {
+          "actor": "rug_detector_99",
+          "text_preview": "Third thread this week about broken scam detection. The honeypot problem is gett...",
+          "urgency": "medium",
+          "signal_id": "sig_020"
+        }
+      ]
+    }
+  ],
+  "queue_stats": {
+    "total": 16,
+    "pending": 16,
+    "approved": 0,
+    "discarded": 0,
+    "outcomes_logged": 0,
+    "momentum_flags": 15
+  },
+  "items": [
+    {
+      "signal": {
+        "id": "sig_001",
+        "source": "x",
+        "actor": "cryptobuilder_eth",
+        "text": "Just shipped a token on pump.fun and need a way to track real community sentiment vs bot noise. Anyone know a tool for this?",
+        "timestamp": "2026-02-04T14:30:00",
+        "source_id": "tw_900001",
+        "reply_to": null,
+        "metrics": {
+          "likes": 45,
+          "retweets": 12,
+          "replies": 8,
+          "quotes": 3
+        }
+      },
+      "classification": {
+        "signal_id": "sig_001",
+        "intent_stage": "evaluating",
+        "primary_pain": "token utility",
+        "urgency": "medium",
+        "confidence": 0.45,
+        "momentum_flag": true,
+        "recommended_action": "Respond to cryptobuilder_eth with relevant info about token utility"
+      },
+      "status": "pending",
+      "reviewed_at": null
+    },
+    {
+      "signal": {
+        "id": "sig_002",
+        "source": "x",
+        "actor": "defi_sarah",
+        "text": "Evaluating signal detection tools for our DAO. Comparing Nansen vs Dune vs building custom. The noise-to-signal ratio on CT is killing us.",
+        "timestamp": "2026-02-04T15:10:00",
+        "source_id": "tw_900002",
+        "reply_to": null,
+        "metrics": {
+          "likes": 89,
+          "retweets": 23,
+          "replies": 15,
+          "quotes": 7
+        }
+      },
+      "classification": {
+        "signal_id": "sig_002",
+        "intent_stage": "exploring",
+        "primary_pain": "general feedback",
+        "urgency": "medium",
+        "confidence": 0.3,
+        "momentum_flag": true,
+        "recommended_action": "Monitor \u2014 assess if pattern continues"
+      },
+      "status": "pending",
+      "reviewed_at": null
+    },
+    {
+      "signal": {
+        "id": "sig_003",
+        "source": "x",
+        "actor": "rug_detector_99",
+        "text": "Another day another rug. When will we have real tools to detect scam tokens BEFORE people get rugged? The current solutions are broken.",
+        "timestamp": "2026-02-04T16:00:00",
+        "source_id": "tw_900003",
+        "reply_to": null,
+        "metrics": {
+          "likes": 234,
+          "retweets": 67,
+          "replies": 42,
+          "quotes": 11
+        }
+      },
+      "classification": {
+        "signal_id": "sig_003",
+        "intent_stage": "requesting",
+        "primary_pain": "reliability/bugs",
+        "urgency": "medium",
+        "confidence": 0.45,
+        "momentum_flag": true,
+        "recommended_action": "Log feature request: reliability/bugs \u2014 check if this clusters"
+      },
+      "status": "pending",
+      "reviewed_at": null
+    }
+  ]
+}

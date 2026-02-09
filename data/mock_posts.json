@@ -1,0 +1,182 @@
+[
+  {
+    "id": "sig_001",
+    "source": "x",
+    "actor": "cryptobuilder_eth",
+    "text": "Just shipped a token on pump.fun and need a way to track real community sentiment vs bot noise. Anyone know a tool for this?",
+    "timestamp": "2026-02-04T14:30:00",
+    "source_id": "tw_900001",
+    "metrics": {"likes": 45, "retweets": 12, "replies": 8, "quotes": 3}
+  },
+  {
+    "id": "sig_002",
+    "source": "x",
+    "actor": "defi_sarah",
+    "text": "Evaluating signal detection tools for our DAO. Comparing Nansen vs Dune vs building custom. The noise-to-signal ratio on CT is killing us.",
+    "timestamp": "2026-02-04T15:10:00",
+    "source_id": "tw_900002",
+    "metrics": {"likes": 89, "retweets": 23, "replies": 15, "quotes": 7}
+  },
+  {
+    "id": "sig_003",
+    "source": "x",
+    "actor": "rug_detector_99",
+    "text": "Another day another rug. When will we have real tools to detect scam tokens BEFORE people get rugged? The current solutions are broken.",
+    "timestamp": "2026-02-04T16:00:00",
+    "source_id": "tw_900003",
+    "metrics": {"likes": 234, "retweets": 67, "replies": 42, "quotes": 11}
+  },
+  {
+    "id": "sig_004",
+    "source": "x",
+    "actor": "tokenlaunch_dev",
+    "text": "Feature request for pump.fun: we need better analytics on which wallets are real users vs bots. The current metrics are meaningless.",
+    "timestamp": "2026-02-04T16:45:00",
+    "source_id": "tw_900004",
+    "metrics": {"likes": 156, "retweets": 38, "replies": 29, "quotes": 5}
+  },
+  {
+    "id": "sig_005",
+    "source": "x",
+    "actor": "alpha_hunter_77",
+    "text": "gm wagmi 🚀🚀🚀🚀 BULLISH",
+    "timestamp": "2026-02-04T17:00:00",
+    "source_id": "tw_900005",
+    "metrics": {"likes": 12, "retweets": 2, "replies": 1, "quotes": 0}
+  },
+  {
+    "id": "sig_006",
+    "source": "x",
+    "actor": "pm_at_scale",
+    "text": "Leaving Productboard. The feedback loop is too slow — by the time insights surface, we've already shipped the wrong thing. Looking for something that actually prioritizes in real time.",
+    "timestamp": "2026-02-04T18:20:00",
+    "source_id": "tw_900006",
+    "metrics": {"likes": 312, "retweets": 89, "replies": 67, "quotes": 15}
+  },
+  {
+    "id": "sig_007",
+    "source": "x",
+    "actor": "solana_builder",
+    "text": "Shipped our token last week. The hardest part isn't the launch — it's figuring out if people actually care or if it's all bot activity. Need real signal detection.",
+    "timestamp": "2026-02-04T19:00:00",
+    "source_id": "tw_900007",
+    "metrics": {"likes": 178, "retweets": 45, "replies": 33, "quotes": 8}
+  },
+  {
+    "id": "sig_008",
+    "source": "x",
+    "actor": "web3_founder",
+    "text": "The scam detection tools are broken. I've been rugged 3 times this month despite using multiple checkers. The honeypot detection especially doesn't work.",
+    "timestamp": "2026-02-04T19:30:00",
+    "source_id": "tw_900008",
+    "metrics": {"likes": 445, "retweets": 123, "replies": 89, "quotes": 22}
+  },
+  {
+    "id": "sig_009",
+    "source": "x",
+    "actor": "airdrop_bot_9000",
+    "text": "🚀 FREE AIRDROP 🚀 Follow + Retweet for 1000 $TOKEN! Like this tweet! #airdrop #free #crypto",
+    "timestamp": "2026-02-04T20:00:00",
+    "source_id": "tw_900009",
+    "metrics": {"likes": 2345, "retweets": 1890, "replies": 456, "quotes": 12}
+  },
+  {
+    "id": "sig_010",
+    "source": "x",
+    "actor": "dao_ops_lead",
+    "text": "We switched from manual Discord monitoring to an automated signal pipeline and it's been incredible. Went from 2 days of synthesis to 2 hours. Building > buying for this use case.",
+    "timestamp": "2026-02-04T20:30:00",
+    "source_id": "tw_900010",
+    "metrics": {"likes": 267, "retweets": 78, "replies": 45, "quotes": 12}
+  },
+  {
+    "id": "sig_011",
+    "source": "x",
+    "actor": "memecoin_mike",
+    "text": "Seriously considering building my own token analytics because nothing on the market cuts through the noise. The 10x returns hype drowns out actual utility discussion.",
+    "timestamp": "2026-02-04T21:00:00",
+    "source_id": "tw_900011",
+    "metrics": {"likes": 89, "retweets": 15, "replies": 23, "quotes": 4}
+  },
+  {
+    "id": "sig_012",
+    "source": "x",
+    "actor": "enterprise_pm",
+    "text": "Bug report: the momentum detection in our feedback tool keeps flagging random spikes as trends. False positives are destroying trust with the product team.",
+    "timestamp": "2026-02-04T21:30:00",
+    "source_id": "tw_900012",
+    "metrics": {"likes": 34, "retweets": 5, "replies": 12, "quotes": 1}
+  },
+  {
+    "id": "sig_013",
+    "source": "x",
+    "actor": "crypto_vc_anon",
+    "text": "Looking for signal intelligence tools in the crypto space. Need something that can separate genuine community growth from manufactured hype. DMs open.",
+    "timestamp": "2026-02-05T08:00:00",
+    "source_id": "tw_900013",
+    "metrics": {"likes": 567, "retweets": 134, "replies": 89, "quotes": 23}
+  },
+  {
+    "id": "sig_014",
+    "source": "x",
+    "actor": "product_skeptic",
+    "text": "Every 'AI feedback tool' I've tried just does sentiment analysis and calls it intelligence. I don't need vibes, I need to know what people are explicitly asking for.",
+    "timestamp": "2026-02-05T09:15:00",
+    "source_id": "tw_900014",
+    "metrics": {"likes": 423, "retweets": 98, "replies": 67, "quotes": 18}
+  },
+  {
+    "id": "sig_015",
+    "source": "x",
+    "actor": "defi_sarah",
+    "text": "Update on our signal detection search — still haven't found anything that handles the noise-to-signal problem well. The scam detection tools are broken, the analytics are surface-level. Building custom seems inevitable.",
+    "timestamp": "2026-02-05T10:00:00",
+    "source_id": "tw_900015",
+    "metrics": {"likes": 156, "retweets": 45, "replies": 34, "quotes": 9}
+  },
+  {
+    "id": "sig_016",
+    "source": "x",
+    "actor": "random_poster",
+    "text": "Beautiful day in Miami. Had great coffee this morning.",
+    "timestamp": "2026-02-05T10:30:00",
+    "source_id": "tw_900016",
+    "metrics": {"likes": 8, "retweets": 0, "replies": 2, "quotes": 0}
+  },
+  {
+    "id": "sig_017",
+    "source": "x",
+    "actor": "token_launcher_v2",
+    "text": "When will pump.fun add real analytics? The current dashboard is useless for understanding if your community is organic or farmed. This is critical for token utility.",
+    "timestamp": "2026-02-05T11:00:00",
+    "source_id": "tw_900017",
+    "metrics": {"likes": 289, "retweets": 67, "replies": 45, "quotes": 11}
+  },
+  {
+    "id": "sig_018",
+    "source": "x",
+    "actor": "web3_founder",
+    "text": "Cancelled my Nansen subscription. The token analytics are decent but they completely miss the qualitative signal. I need to understand WHY people are buying, not just that they are.",
+    "timestamp": "2026-02-05T12:00:00",
+    "source_id": "tw_900018",
+    "metrics": {"likes": 234, "retweets": 56, "replies": 41, "quotes": 8}
+  },
+  {
+    "id": "sig_019",
+    "source": "x",
+    "actor": "infra_dev",
+    "text": "Shipping a new release of our signal detection SDK. Added support for real-time intent classification. DM for early access. Building in public.",
+    "timestamp": "2026-02-05T13:00:00",
+    "source_id": "tw_900019",
+    "metrics": {"likes": 134, "retweets": 34, "replies": 23, "quotes": 5}
+  },
+  {
+    "id": "sig_020",
+    "source": "x",
+    "actor": "rug_detector_99",
+    "text": "Third thread this week about broken scam detection. The honeypot problem is getting worse, not better. If someone doesn't build a real solution soon, thousands more will get drained.",
+    "timestamp": "2026-02-05T14:00:00",
+    "source_id": "tw_900020",
+    "metrics": {"likes": 678, "retweets": 189, "replies": 134, "quotes": 28}
+  }
+]
