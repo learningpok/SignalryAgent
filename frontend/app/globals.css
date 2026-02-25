@@ -5,11 +5,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: #0a0a0a;
-  color: #fafafa;
-}
-
 html {
   scroll-behavior: smooth;
 }

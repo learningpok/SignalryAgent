@@ -1,283 +1,802 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect, useRef, useState, useCallback } from "react";
+import "./landing.css";
 
 export default function LandingPage() {
+  const [navScrolled, setNavScrolled] = useState(false);
+  const [transformActive, setTransformActive] = useState(false);
+  const revealRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const metricsRef = useRef<HTMLElement | null>(null);
+  const transformRef = useRef<HTMLDivElement | null>(null);
+  const metricCountedRef = useRef(false);
+
+  // 1. Mouse glow — set CSS vars on root
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      document.documentElement.style.setProperty("--mx", e.clientX + "px");
+      document.documentElement.style.setProperty("--my", e.clientY + "px");
+    };
+    document.addEventListener("mousemove", handler);
+    return () => document.removeEventListener("mousemove", handler);
+  }, []);
+
+  // 2. Nav scroll — toggle scrolled state
+  useEffect(() => {
+    const handler = () => setNavScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  // 3. Reveal on scroll — IntersectionObserver for .reveal elements
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    revealRefs.current.forEach((el) => {
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
+
+  // 4. Metric counter animation
+  const animateCounters = useCallback(() => {
+    if (metricCountedRef.current) return;
+    metricCountedRef.current = true;
+    const els = document.querySelectorAll<HTMLElement>(".metric-number");
+    els.forEach((el) => {
+      const text = el.textContent || "";
+      const num = parseInt(text);
+      const suffix = text.replace(/[0-9]/g, "");
+      let count = 0;
+      const step = Math.ceil(num / 40);
+      const interval = setInterval(() => {
+        count += step;
+        if (count >= num) {
+          count = num;
+          clearInterval(interval);
+        }
+        el.textContent = count + suffix;
+      }, 30);
+    });
+  }, []);
+
+  useEffect(() => {
+    const section = metricsRef.current;
+    if (!section) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          animateCounters();
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    obs.observe(section);
+    return () => obs.disconnect();
+  }, [animateCounters]);
+
+  // 5. Transform stage activation on scroll
+  useEffect(() => {
+    const el = transformRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setTransformActive(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const addRevealRef = (index: number) => (el: HTMLDivElement | null) => {
+    revealRefs.current[index] = el;
+  };
+
+  const LinkIcon = () => (
+    <svg viewBox="0 0 24 24">
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+  );
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-purple-50">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-20">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gray-900 rounded-xl"></div>
-            <span className="text-xl font-semibold text-gray-900">Signalry</span>
-          </div>
-          <Link
-            href="/app"
-            className="px-4 py-2 bg-white text-gray-900 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors shadow-sm"
-          >
-            Open app
-          </Link>
-        </div>
+    <div className="landing-page" style={{ position: "relative" }}>
+      <div className="landing-glow-bg" />
 
-        {/* Hero */}
-        <div className="text-center mb-20">
-          <h1 className="text-6xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
-            Your AI agent that turns<br />customer chaos into product clarity.
-          </h1>
-          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Signalry reads every ticket, review, and interview so you don&apos;t have to. Get actionable insights in minutes, not weeks.
+      {/* NAV */}
+      <nav className={`landing-nav${navScrolled ? " scrolled" : ""}`}>
+        <div className="container">
+          <a href="#" className="logo">
+            Signal<span>ry</span>
+          </a>
+          <div className="nav-links">
+            <a href="#demo">Agent</a>
+            <a href="#problem">Problem</a>
+            <a href="#solution">Solution</a>
+            <button className="btn-nav">Get early access</button>
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="hero">
+        <div className="hero-badge">
+          <span className="dot" />
+          Now processing signals
+        </div>
+        <h1>
+          Cut the noise.
+          <br />
+          Focus on what <em>actually matters.</em>
+        </h1>
+        <p className="hero-sub">
+          The AI agent that{"\u2019"}s present everywhere you are {"\u2014"} and
+          tells you what matters.
+        </p>
+        <div className="hero-ctas">
+          <button className="btn-primary">Request early access</button>
+          <button
+            className="btn-secondary"
+            onClick={() =>
+              document
+                .getElementById("demo")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            See the agent in action {"\u2193"}
+          </button>
+        </div>
+      </section>
+
+      {/* AGENT DEMO — Chat Copilot */}
+      <section className="agent-demo" id="demo">
+        <div className="container reveal" ref={addRevealRef(0)}>
+          <div className="section-label">The Agent</div>
+          <h2 className="section-heading">
+            Your ops copilot.
+            <br />
+            <em>It challenges you.</em>
+          </h2>
+          <p className="agent-demo-sub">
+            Signalry isn{"\u2019"}t a dashboard. It{"\u2019"}s a copilot that
+            reads every channel, finds what matters, and pushes back when your
+            priorities are wrong.
           </p>
-          <Link
-            href="/app"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl text-base font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
-          >
-            Start analyzing feedback free
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </Link>
-        </div>
 
-        {/* Main section: LEFT = Problem, RIGHT = AI Solution */}
-        <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
-          {/* LEFT: The Problem (Pain + Ecosystem) */}
-          <div>
-            <div className="inline-block px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold uppercase tracking-wide mb-4">
-              The Problem
+          <div className="chat-window">
+            {/* Top bar */}
+            <div className="chat-topbar">
+              <div className="chat-topbar-dot" />
+              <div className="chat-topbar-name">Signalry Agent</div>
+              <div className="chat-topbar-channels">
+                <span className="chat-topbar-ch">Slack</span>
+                <span className="chat-topbar-ch">Zendesk</span>
+                <span className="chat-topbar-ch">X</span>
+                <span className="chat-topbar-ch">Intercom</span>
+                <span className="chat-topbar-ch">+2</span>
+              </div>
+              <div className="chat-topbar-status">Monitoring 6 channels</div>
             </div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
-              You&apos;re buried in feedback.<br/>
-              Your roadmap is a guessing game.
+
+            {/* Chat body */}
+            <div className="chat-body">
+              {/* 1. User asks */}
+              <div className="chat-msg user">
+                <div className="chat-avatar">B</div>
+                <div className="chat-bubble">
+                  What should I focus on this morning?
+                </div>
+              </div>
+
+              {/* 2. Agent responds with ranked signals */}
+              <div className="chat-msg agent">
+                <div className="chat-avatar">S</div>
+                <div className="chat-bubble">
+                  I scanned <strong>6,130 signals</strong> across 6 channels
+                  overnight. Here{"\u2019"}s what needs your attention:
+                  <div className="chat-data">
+                    <div className="chat-data-row">
+                      <div className="chat-data-score s-r">9.2</div>
+                      <div className="chat-data-body">
+                        <div className="chat-data-title">
+                          Billing endpoint 500 errors
+                        </div>
+                        <div className="chat-data-meta">
+                          12 enterprise accounts {"\u00B7"} $840K ARR {"\u00B7"}{" "}
+                          Slack + Zendesk + X
+                        </div>
+                      </div>
+                    </div>
+                    <div className="chat-data-row">
+                      <div className="chat-data-score s-r">8.4</div>
+                      <div className="chat-data-body">
+                        <div className="chat-data-title">
+                          CSV export broken for large files
+                        </div>
+                        <div className="chat-data-meta">
+                          6 reports from 4 customers {"\u00B7"} recurring since
+                          Tuesday {"\u00B7"} Zendesk + Slack
+                        </div>
+                      </div>
+                    </div>
+                    <div className="chat-data-row">
+                      <div className="chat-data-score s-am">6.7</div>
+                      <div className="chat-data-body">
+                        <div className="chat-data-title">
+                          Slack integration request
+                        </div>
+                        <div className="chat-data-meta">
+                          Blocking 3 enterprise deals {"\u00B7"} $580K pipeline{" "}
+                          {"\u00B7"} Intercom
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="chat-trend up">
+                    {"\u2191"} Billing issues up 340% vs last week
+                  </span>
+                </div>
+              </div>
+
+              {/* 3. User asks about dark mode */}
+              <div className="chat-msg user">
+                <div className="chat-avatar">B</div>
+                <div className="chat-bubble">
+                  What about all the dark mode requests? Feels like everyone
+                  wants it.
+                </div>
+              </div>
+
+              {/* 4. Agent pushes back */}
+              <div className="chat-msg agent">
+                <div className="chat-avatar">S</div>
+                <div className="chat-bubble">
+                  I{"\u2019"}d challenge that. Here{"\u2019"}s what the data
+                  says:
+                  <div className="chat-challenge">
+                    <strong>Dark mode: 47 mentions</strong> {"\u2014"} but 92%
+                    from free-tier users, zero from enterprise. No correlation
+                    with churn or deal velocity.
+                    <br />
+                    <br />
+                    <strong>Slack integration: 8 mentions</strong> {"\u2014"} but
+                    from 3 enterprise accounts that represent $580K in pipeline.
+                    One explicitly said it{"\u2019"}s a blocker.
+                    <br />
+                    <br />
+                    Volume {"\u2260"} impact. I{"\u2019"}d keep dark mode in the
+                    backlog and escalate the Slack integration.
+                  </div>
+                </div>
+              </div>
+
+              {/* 5. User asks about trends */}
+              <div className="chat-msg user">
+                <div className="chat-avatar">B</div>
+                <div className="chat-bubble">
+                  Show me emerging trends I might be missing.
+                </div>
+              </div>
+
+              {/* 6. Agent surfaces insights */}
+              <div className="chat-msg agent">
+                <div className="chat-avatar">S</div>
+                <div className="chat-bubble">
+                  Two patterns forming that aren{"\u2019"}t on your radar yet:
+                  <div className="chat-data">
+                    <div className="chat-data-row">
+                      <div className="chat-data-score s-am">New</div>
+                      <div className="chat-data-body">
+                        <div className="chat-data-title">
+                          {"\u201C"}Confusing onboarding{"\u201D"} cluster
+                        </div>
+                        <div className="chat-data-meta">
+                          Appeared across Intercom + Discord + Zendesk {"\u00B7"}{" "}
+                          5 independent reports in 3 days {"\u00B7"} 3 are
+                          mid-market
+                        </div>
+                      </div>
+                    </div>
+                    <div className="chat-data-row">
+                      <div className="chat-data-score s-g">Watch</div>
+                      <div className="chat-data-body">
+                        <div className="chat-data-title">
+                          Positive sentiment around new API
+                        </div>
+                        <div className="chat-data-meta">
+                          {"\u201C"}Finally works{"\u201D"} mentions up 4x on X
+                          + Slack {"\u00B7"} potential expansion signal
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  The onboarding cluster is worth investigating {"\u2014"} if it
+                  hits enterprise, it becomes a P0. Want me to draft a summary
+                  for the product team?
+                </div>
+              </div>
+
+              {/* 7. User approves */}
+              <div className="chat-msg user">
+                <div className="chat-avatar">B</div>
+                <div className="chat-bubble">
+                  Yes, draft it. And escalate the billing issue to engineering
+                  now.
+                </div>
+              </div>
+            </div>
+
+            {/* Input bar */}
+            <div className="chat-input-bar">
+              <div className="chat-input">
+                Ask about signals, trends, or priorities{"\u2026"}
+              </div>
+              <button className="chat-send">
+                <svg viewBox="0 0 24 24">
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PROBLEM — animated transformation */}
+      <section className="problem-section" id="problem">
+        <div className="container">
+          <div className="problem-top reveal" ref={addRevealRef(1)}>
+            <div className="section-label">The Problem</div>
+            <h2
+              className="section-heading"
+              style={{ maxWidth: 700, margin: "0 auto" }}
+            >
+              6 channels. 6,000 messages a day.
+              <br />
+              <em>Zero clarity.</em>
             </h2>
-
-            {/* Pain points */}
-            <div className="space-y-4 mb-8">
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mt-0.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="3">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900 mb-1">Feedback lives in 15 different places</div>
-                  <div className="text-sm text-gray-600">
-                    Support tickets. App reviews. Sales calls. Slack threads. NPS surveys. User interviews. By the time you&apos;ve collected it all, it&apos;s already outdated.
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mt-0.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="3">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900 mb-1">Synthesis takes forever (or doesn&apos;t happen)</div>
-                  <div className="text-sm text-gray-600">
-                    You&apos;ve got a mountain of qualitative data and zero time to analyze it. So you ship based on gut feel, loudest voices, or whatever the CEO saw on Twitter.
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-red-100 rounded-full flex items-center justify-center mt-0.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="3">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900 mb-1">You can&apos;t prove why you&apos;re building what you&apos;re building</div>
-                  <div className="text-sm text-gray-600">
-                    Stakeholders want evidence. You&apos;ve got a spreadsheet full of anecdotes and a Notion doc nobody reads. Good luck defending your roadmap in the next exec review.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Ecosystem chaos */}
-            <div className="bg-white/40 backdrop-blur rounded-2xl p-6 border border-gray-200/50">
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">
-                Your feedback ecosystem today
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1.5 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg text-xs font-medium shadow-sm">Slack</span>
-                <span className="px-3 py-1.5 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg text-xs font-medium shadow-sm">Zendesk</span>
-                <span className="px-3 py-1.5 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg text-xs font-medium shadow-sm">Twitter</span>
-                <span className="px-3 py-1.5 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white rounded-lg text-xs font-medium shadow-sm">Discord</span>
-                <span className="px-3 py-1.5 bg-gradient-to-br from-blue-400 to-blue-500 text-white rounded-lg text-xs font-medium shadow-sm">Intercom</span>
-                <span className="px-3 py-1.5 bg-gradient-to-br from-purple-600 to-purple-700 text-white rounded-lg text-xs font-medium shadow-sm">Linear</span>
-                <span className="px-3 py-1.5 bg-gradient-to-br from-gray-700 to-gray-800 text-white rounded-lg text-xs font-medium shadow-sm">GitHub</span>
-                <span className="px-3 py-1.5 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-lg text-xs font-medium shadow-sm">Email</span>
-              </div>
-              <div className="mt-4 text-sm text-gray-600">
-                &rarr; Overwhelm. Context switching. Missed insights.
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT: The AI Agent Solution */}
-          <div>
-            <div className="inline-block px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold uppercase tracking-wide mb-4">
-              AI Agent Solution
-            </div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-tight">
-              Meet your AI agent for<br/>product intelligence.
-            </h2>
-
-            <div className="bg-gradient-to-br from-orange-100 via-pink-100 to-purple-100 rounded-3xl p-8 relative overflow-hidden">
-              {/* Decorative background */}
-              <div className="absolute inset-0 opacity-20">
-                <div className="absolute top-10 left-10 w-32 h-32 bg-orange-400 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-400 rounded-full blur-3xl"></div>
-              </div>
-
-              {/* AI Agent pipeline */}
-              <div className="relative space-y-6">
-                {/* Step 1: Continuous monitoring */}
-                <div className="bg-white/70 backdrop-blur rounded-2xl p-5 border border-white/50 shadow-sm">
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 w-14 h-14 bg-gray-900 rounded-xl shadow-lg flex items-center justify-center">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                        <path d="M12 2a10 10 0 100 20 10 10 0 000-20z"></path>
-                        <path d="M12 6v6l4 2"></path>
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Step 1: Connect your sources</div>
-                      <div className="text-sm font-semibold text-gray-900">Plug in Intercom, Zendesk, G2, Gong, Slack, and more</div>
-                      <div className="text-xs text-gray-600 mt-0.5">Your agent starts learning immediately</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-400">
-                    <path d="M12 5v14m0 0l-7-7m7 7l7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-
-                {/* Step 2: AI Processing */}
-                <div className="bg-white/70 backdrop-blur rounded-2xl p-5 border-2 border-orange-300 shadow-lg">
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-orange-500 to-pink-500 rounded-xl shadow-lg flex items-center justify-center">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-xs font-semibold text-orange-600 uppercase tracking-wide">Step 2: Your agent analyzes everything</div>
-                      <div className="text-sm font-semibold text-gray-900">Reads, clusters, and synthesizes thousands of data points</div>
-                      <div className="text-xs text-gray-600 mt-0.5">Identifies patterns you&apos;d miss. Surfaces what actually matters.</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-400">
-                    <path d="M12 5v14m0 0l-7-7m7 7l7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-
-                {/* Step 3: Recommended actions */}
-                <div className="bg-white/70 backdrop-blur rounded-2xl p-5 border border-white/50 shadow-sm">
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl shadow-lg flex items-center justify-center">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                        <path d="M22 4L12 14.01l-3-3"></path>
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-xs font-semibold text-green-600 uppercase tracking-wide">Step 3: Get prioritized insights on demand</div>
-                      <div className="text-sm font-semibold text-gray-900">Ask questions in plain English. Get answers backed by real user evidence.</div>
-                      <div className="text-xs text-gray-600 mt-0.5">Share reports that make stakeholders say &apos;wow.&apos;</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Human approval badge (small, not hero) */}
-                <div className="text-center pt-4">
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 rounded-full border border-gray-200/50 text-xs text-gray-600">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span>You approve before action</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Features */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-gray-200/50 hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="18" y1="20" x2="18" y2="10"></line>
-                <line x1="12" y1="20" x2="12" y2="4"></line>
-                <line x1="6" y1="20" x2="6" y2="14"></line>
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Save 20+ hours per week
-            </h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Your agent works 24/7. No more manual tagging, no more spreadsheet wrangling. Reclaim your calendar for actual product work.
+            <p>
+              Slack, Zendesk, X, Telegram, Intercom, Discord {"\u2014"} your
+              customers talk everywhere. A billing outage shows up in three
+              places. Nobody connects the dots.{" "}
+              <strong>The agent does.</strong>
             </p>
           </div>
 
-          <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-gray-200/50 hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Decisions backed by evidence
-            </h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Every insight links back to real user quotes. No more &apos;I think users want X.&apos; Now it&apos;s &apos;127 users said X, here&apos;s the proof.&apos;
-            </p>
-          </div>
-
-          <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-lg border border-gray-200/50 hover:shadow-xl transition-shadow">
-            <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4M12 8h.01"></path>
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Align your entire team
-            </h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Share living dashboards with engineering, design, and leadership. Everyone sees the same insights. Roadmap debates become agreements.
-            </p>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center">
-          <Link
-            href="/app"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl text-base font-medium hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
+          <div
+            className={`transform-stage${transformActive ? " active" : ""}`}
+            ref={transformRef}
           >
-            Start analyzing feedback free
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </Link>
+            {/* Row 1: phase labels */}
+            <div className="phase-row">
+              <div className="phase-label before">
+                Before {"\u2014"} Raw chaos
+              </div>
+              <div />
+              <div className="phase-label after">
+                After {"\u2014"} Agent output
+              </div>
+            </div>
+
+            {/* Col 1: Chaos cards */}
+            <div className="chaos-cards">
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7" />
+                </svg>
+                <span className="src">Slack</span>
+                <span className="preview">
+                  {"\u201C"}billing is down again{"\u201D"}
+                </span>
+                <span className="urgency u-r" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <polyline points="22 7 12 13 2 7" />
+                </svg>
+                <span className="src">Zendesk</span>
+                <span className="preview">
+                  {"\u201C"}can{"\u2019"}t export CSV{"\u201D"}
+                </span>
+                <span className="urgency u-am" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1" />
+                </svg>
+                <span className="src">X</span>
+                <span className="preview">
+                  {"\u201C"}@acme payments broken{"\u201D"}
+                </span>
+                <span className="urgency u-r" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+                <span className="src">Telegram</span>
+                <span className="preview">
+                  {"\u201C"}anyone else seeing 500s?{"\u201D"}
+                </span>
+                <span className="urgency u-r" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12" />
+                </svg>
+                <span className="src">Intercom</span>
+                <span className="preview">
+                  {"\u201C"}need Slack integration{"\u201D"}
+                </span>
+                <span className="urgency u-am" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                </svg>
+                <span className="src">Discord</span>
+                <span className="preview">
+                  {"\u201C"}dark mode when?{"\u201D"}
+                </span>
+                <span className="urgency u-tm" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <polyline points="22 7 12 13 2 7" />
+                </svg>
+                <span className="src">Zendesk</span>
+                <span className="preview">
+                  {"\u201C"}billing 500 error{"\u201D"}
+                </span>
+                <span className="urgency u-r" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8" />
+                </svg>
+                <span className="src">Slack</span>
+                <span className="preview">
+                  {"\u201C"}csv export hangs{"\u201D"}
+                </span>
+                <span className="urgency u-am" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12" />
+                </svg>
+                <span className="src">Intercom</span>
+                <span className="preview">
+                  {"\u201C"}onboarding confusing{"\u201D"}
+                </span>
+                <span className="urgency u-g" />
+              </div>
+              <div className="msg-card">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+                <span className="src">Discord</span>
+                <span className="preview">
+                  {"\u201C"}gm, love the product{"\u201D"}
+                </span>
+                <span className="urgency u-tm" />
+              </div>
+            </div>
+
+            {/* Col 2: Agent column (arrow in → orb → arrow out) */}
+            <div className="agent-col">
+              <div className="agent-arrow arr-in">
+                <div className="agent-arrow-line" />
+              </div>
+              <div className="agent-arrow-label">10 signals</div>
+              <div className="agent-proc-orb" style={{ position: "relative" }}>
+                <div className="agent-proc-ring" />
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 1v4" />
+                  <path d="M12 19v4" />
+                  <path d="M1 12h4" />
+                  <path d="M19 12h4" />
+                  <path d="M4.22 4.22l2.83 2.83" />
+                  <path d="M16.95 16.95l2.83 2.83" />
+                  <path d="M4.22 19.78l2.83-2.83" />
+                  <path d="M16.95 7.05l2.83-2.83" />
+                </svg>
+                <span className="agent-proc-label">Agent</span>
+              </div>
+              <div className="agent-proc-status">
+                Filtering {"\u00B7"} Scoring {"\u00B7"} Ranking
+              </div>
+              <div className="agent-arrow-label">4 decisions</div>
+              <div className="agent-arrow arr-out">
+                <div className="agent-arrow-line" />
+              </div>
+            </div>
+
+            {/* Col 3: Ranked output */}
+            <div className="ranked-output">
+              <div className="ranked-card">
+                <div className="ranked-num rn-high">9.2</div>
+                <div className="ranked-body">
+                  <span className="ranked-tag tag-incident">Incident</span>
+                  <div className="ranked-text">
+                    Billing endpoint 500 errors {"\u2014"} 12 enterprise
+                    accounts
+                  </div>
+                  <div className="ranked-sources">
+                    <LinkIcon />
+                    Correlated: Slack + Zendesk + X
+                  </div>
+                  <div className="ranked-reason">
+                    {"\u2192"} $840K ARR at risk {"\u00B7"} 3 reports in 2hrs
+                  </div>
+                </div>
+              </div>
+              <div className="ranked-card">
+                <div className="ranked-num rn-high">8.4</div>
+                <div className="ranked-body">
+                  <span className="ranked-tag tag-bug">Bug</span>
+                  <div className="ranked-text">
+                    CSV export broken for large accounts
+                  </div>
+                  <div className="ranked-sources">
+                    <LinkIcon />
+                    Correlated: Zendesk + Slack
+                  </div>
+                  <div className="ranked-reason">
+                    {"\u2192"} 6 reports, 4 customers {"\u00B7"} recurring
+                  </div>
+                </div>
+              </div>
+              <div className="ranked-card">
+                <div className="ranked-num rn-med">6.7</div>
+                <div className="ranked-body">
+                  <span className="ranked-tag tag-feature">Feature</span>
+                  <div className="ranked-text">
+                    Slack integration {"\u2014"} blocking 3 deals
+                  </div>
+                  <div className="ranked-sources">
+                    <LinkIcon />
+                    Intercom
+                  </div>
+                  <div className="ranked-reason">
+                    {"\u2192"} $580K pipeline blocked
+                  </div>
+                </div>
+              </div>
+              <div className="ranked-card">
+                <div className="ranked-num rn-low">3.1</div>
+                <div className="ranked-body">
+                  <span
+                    className="ranked-tag"
+                    style={{
+                      background: "var(--gd)",
+                      color: "var(--g)",
+                    }}
+                  >
+                    Low
+                  </span>
+                  <div className="ranked-text">
+                    Dark mode, onboarding, praise {"\u2014"} deprioritized
+                  </div>
+                  <div className="ranked-sources">
+                    <LinkIcon />
+                    Discord + Intercom {"\u2014"} no pattern
+                  </div>
+                  <div className="ranked-reason">
+                    {"\u2192"} Free tier, isolated requests
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="transform-counter reveal" ref={addRevealRef(2)}>
+            <div className="tc-item">
+              <div className="tc-num">10</div>
+              <div className="tc-label">Raw messages in</div>
+            </div>
+            <div className="tc-item">
+              <div className="tc-num" style={{ color: "var(--ac)" }}>
+                4
+              </div>
+              <div className="tc-label">Decisions out</div>
+            </div>
+            <div className="tc-item">
+              <div className="tc-num" style={{ color: "var(--r)" }}>
+                60%
+              </div>
+              <div className="tc-label">Noise eliminated</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* SOLUTION */}
+      <section className="solution-section" id="solution">
+        <div className="container reveal" ref={addRevealRef(3)}>
+          <div className="solution-header">
+            <div className="section-label">The Solution</div>
+            <h2
+              className="section-heading"
+              style={{ maxWidth: 640, margin: "0 auto" }}
+            >
+              One agent. Every channel.
+              <br />
+              <em>Explainable decisions.</em>
+            </h2>
+            <p>
+              Signalry connects to all your channels, reads every signal, and
+              outputs a single ranked list of what your team should focus on
+              right now {"\u2014"} with full reasoning for every score.
+            </p>
+          </div>
+          <div className="solution-grid">
+            <div className="sol-card">
+              <div className="sol-card-num">01</div>
+              <h3>Omnichannel ingestion</h3>
+              <p>
+                One agent watches Slack, Zendesk, X, Telegram, Intercom,
+                Discord. It deduplicates cross-channel signals so the same issue
+                reported in 3 places shows up once {"\u2014"} with full context.
+              </p>
+            </div>
+            <div className="sol-card">
+              <div className="sol-card-num">02</div>
+              <h3>Explainable scoring</h3>
+              <p>
+                Every signal gets a priority score based on severity, recurrence,
+                and business impact (ARR, tier, churn risk). You always know{" "}
+                <em>why</em> something ranks. No black boxes.
+              </p>
+            </div>
+            <div className="sol-card">
+              <div className="sol-card-num">03</div>
+              <h3>Human-in-the-loop</h3>
+              <p>
+                The agent proposes. You decide. Approve, discard, or override.
+                Every action is logged. The agent learns from your decisions and
+                gets sharper over time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* METRICS */}
+      <section
+        className="metrics-section"
+        id="metrics"
+        ref={metricsRef as React.RefObject<HTMLElement>}
+      >
+        <div className="container reveal" ref={addRevealRef(4)}>
+          <div className="section-label">Early results</div>
+          <h2 className="section-heading">
+            Built for precision, <em>not volume</em>
+          </h2>
+          <div className="metrics-grid">
+            <div className="metric-card">
+              <div className="metric-number">95%+</div>
+              <div className="metric-label">
+                Noise correctly filtered {"\u2014"}
+                <br />
+                you only see what matters
+              </div>
+            </div>
+            <div className="metric-card">
+              <div className="metric-number">100%</div>
+              <div className="metric-label">
+                Priority precision {"\u2014"}
+                <br />
+                top signals are truly critical
+              </div>
+            </div>
+            <div className="metric-card">
+              <div className="metric-number">86%</div>
+              <div className="metric-label">
+                Signal classification accuracy {"\u2014"}
+                <br />
+                deterministic heuristics, no LLM
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="cta-section">
+        <div className="container reveal" ref={addRevealRef(5)}>
+          <div className="cta-box">
+            <h2>
+              Stop observing feedback.
+              <br />
+              Start <em>deciding</em> from it.
+            </h2>
+            <p className="cta-sub">
+              Signalry is in private alpha. We{"\u2019"}re onboarding teams that
+              drown in signal and need to focus.
+            </p>
+            <button className="btn-primary">Request early access</button>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="landing-footer">
+        <div className="container">
+          <p>
+            {"\u00A9"} 2025 Signalry. Built for teams that care about what
+            matters.
+          </p>
+          <a href="#">hello@signalry.io</a>
+        </div>
+      </footer>
     </div>
   );
 }
