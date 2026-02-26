@@ -1,0 +1,66 @@
+"""
+Discord connector — push-mode stub.
+
+Designed for Discord Bot API integration.
+Requires bot_token in config. Start/stop are stubs for now.
+"""
+
+from __future__ import annotations
+
+import logging
+from typing import Any, Callable, Dict
+
+from signalry.models import Signal
+
+from .base import ConnectorStatus, PushConnector
+
+logger = logging.getLogger(__name__)
+
+
+class DiscordConnector(PushConnector):
+    """Push connector for Discord servers/channels."""
+
+    name = "discord"
+
+    def __init__(self) -> None:
+        self.status = ConnectorStatus.IDLE
+        self._config: Dict[str, Any] = {}
+        self._callback: Callable[[Signal], None] | None = None
+
+    def configure(self, config: Dict[str, Any]) -> None:
+        self._config = config
+        if not config.get("bot_token"):
+            self.status = ConnectorStatus.ERROR
+            logger.error("Discord connector requires bot_token in config")
+        else:
+            self.status = ConnectorStatus.IDLE
+            logger.info("Discord connector configured")
+
+    def start(self, callback: Callable[[Signal], None]) -> None:
+        if not self._config.get("bot_token"):
+            logger.error("Cannot start Discord connector: no bot_token configured")
+            self.status = ConnectorStatus.ERROR
+            return
+        self._callback = callback
+        self.status = ConnectorStatus.CONNECTED
+        logger.info("Discord connector started (stub)")
+
+    def stop(self) -> None:
+        self._callback = None
+        self.status = ConnectorStatus.IDLE
+        logger.info("Discord connector stopped (stub)")
+
+    @staticmethod
+    def _parse_message(msg: dict) -> Signal:
+        """Parse a Discord message dict into a Signal."""
+        return Signal(
+            source="discord",
+            actor=msg.get("author", {}).get("username", "unknown"),
+            text=msg.get("content", ""),
+            source_id=str(msg.get("id", "")),
+        )
+
+    def health(self) -> dict:
+        base = super().health()
+        base["configured"] = bool(self._config.get("bot_token"))
+        return base
