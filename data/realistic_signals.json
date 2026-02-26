@@ -1,0 +1,272 @@
+[
+  {
+    "source": "intercom",
+    "actor": "@sarah_dev",
+    "text": "Your API keeps timing out when I try to batch process more than 100 records. This is a critical bug blocking our integration.",
+    "hours_ago": 3,
+    "metrics": {"replies": 3, "views": 45},
+    "category": "bug_report",
+    "cluster_tag": "api_reliability"
+  },
+  {
+    "source": "slack",
+    "actor": "@james_devops",
+    "text": "Getting a 500 error on the /users endpoint since this morning. We need this fixed ASAP — it's blocking our deployment pipeline.",
+    "hours_ago": 5,
+    "metrics": {"reactions": 8, "replies": 5, "thread_views": 34},
+    "category": "bug_report",
+    "cluster_tag": "api_reliability"
+  },
+  {
+    "source": "intercom",
+    "actor": "@chen_backend",
+    "text": "The API rate limiter is broken — we're getting 429 errors well under the documented limits. This is a serious issue.",
+    "hours_ago": 8,
+    "metrics": {"replies": 4, "views": 67},
+    "category": "bug_report",
+    "cluster_tag": "api_reliability"
+  },
+  {
+    "source": "slack",
+    "actor": "@mike_ops",
+    "text": "Anyone else seeing API gateway errors? Our team has been struggling with intermittent 503 errors for two days now.",
+    "hours_ago": 14,
+    "metrics": {"reactions": 12, "replies": 9, "thread_views": 56},
+    "category": "bug_report",
+    "cluster_tag": "api_reliability"
+  },
+  {
+    "source": "hubspot",
+    "actor": "@tom_founder",
+    "text": "Thinking of canceling — the pricing changed and I'm not sure the value is there anymore. Need to evaluate alternatives.",
+    "hours_ago": 6,
+    "metrics": {"views": 12, "clicks": 3},
+    "category": "churn_signal",
+    "cluster_tag": "pricing"
+  },
+  {
+    "source": "slack",
+    "actor": "@priya_eng",
+    "text": "Our team is evaluating whether to stay on the current plan. The price increase feels steep for what we're getting.",
+    "hours_ago": 12,
+    "metrics": {"reactions": 15, "replies": 7, "thread_views": 89},
+    "category": "churn_signal",
+    "cluster_tag": "pricing"
+  },
+  {
+    "source": "hubspot",
+    "actor": "@rachel_cfo",
+    "text": "The cost per seat is getting expensive for our team size. Looking for something more affordable without losing key features.",
+    "hours_ago": 24,
+    "metrics": {"views": 8, "clicks": 2},
+    "category": "product_feedback",
+    "cluster_tag": "pricing"
+  },
+  {
+    "source": "intercom",
+    "actor": "@alex_support",
+    "text": "Feature request: we need webhook support for real-time alerts when critical issues are raised by customers.",
+    "hours_ago": 4,
+    "metrics": {"replies": 2, "views": 31},
+    "category": "feature_request",
+    "cluster_tag": null
+  },
+  {
+    "source": "slack",
+    "actor": "@emma_pm",
+    "text": "When will you add support for custom dashboards? Our team needs to visualize data in ways the current UI doesn't support.",
+    "hours_ago": 10,
+    "metrics": {"reactions": 6, "replies": 4, "thread_views": 42},
+    "category": "feature_request",
+    "cluster_tag": null
+  },
+  {
+    "source": "hubspot",
+    "actor": "@david_analyst",
+    "text": "Please add an export-to-CSV option for reports. We require this for quarterly reviews and it's currently missing from the platform.",
+    "hours_ago": 18,
+    "metrics": {"views": 15, "clicks": 4},
+    "category": "feature_request",
+    "cluster_tag": "missing_feature"
+  },
+  {
+    "source": "intercom",
+    "actor": "@lisa_qa",
+    "text": "Feature request: the search is missing advanced filtering options. We need to filter by date range and source type.",
+    "hours_ago": 28,
+    "metrics": {"replies": 1, "views": 22},
+    "category": "feature_request",
+    "cluster_tag": "missing_feature"
+  },
+  {
+    "source": "slack",
+    "actor": "@nate_design",
+    "text": "Would be great if the UI had dark mode. Our team works late hours and the bright interface is hard to use for long sessions.",
+    "hours_ago": 36,
+    "metrics": {"reactions": 19, "replies": 3, "thread_views": 67},
+    "category": "feature_request",
+    "cluster_tag": null
+  },
+  {
+    "source": "intercom",
+    "actor": "@mike_ops",
+    "text": "The notification system is broken — I'm not getting alerts for critical issues. We need this fixed immediately.",
+    "hours_ago": 7,
+    "metrics": {"replies": 5, "views": 38},
+    "category": "bug_report",
+    "cluster_tag": "api_reliability"
+  },
+  {
+    "source": "hubspot",
+    "actor": "@sarah_dev",
+    "text": "Bug report: the date picker in the reports section is broken on Firefox. Cannot select dates after the 28th of any month.",
+    "hours_ago": 20,
+    "metrics": {"views": 9, "clicks": 1},
+    "category": "bug_report",
+    "cluster_tag": null
+  },
+  {
+    "source": "slack",
+    "actor": "@priya_eng",
+    "text": "The search functionality is broken — it returns zero results even for exact matches. Our whole team is frustrated.",
+    "hours_ago": 32,
+    "metrics": {"reactions": 7, "replies": 11, "thread_views": 78},
+    "category": "bug_report",
+    "cluster_tag": null
+  },
+  {
+    "source": "hubspot",
+    "actor": "@tom_founder",
+    "text": "We're leaving for a competitor. The missing webhook integration was the final straw — we need real-time data and you don't support it.",
+    "hours_ago": 1,
+    "metrics": {"views": 23, "clicks": 5},
+    "category": "churn_signal",
+    "cluster_tag": "missing_feature"
+  },
+  {
+    "source": "intercom",
+    "actor": "@maya_startup",
+    "text": "Cancelled our enterprise plan today. The feature gaps compared to CompetitorX are just too wide. Switching back to what worked before.",
+    "hours_ago": 9,
+    "metrics": {"replies": 2, "views": 14},
+    "category": "churn_signal",
+    "cluster_tag": null
+  },
+  {
+    "source": "slack",
+    "actor": "@alex_support",
+    "text": "Our team dropped your product after 6 months. The broken API was the main issue — we can't build on something unreliable.",
+    "hours_ago": 22,
+    "metrics": {"reactions": 4, "replies": 6, "thread_views": 45},
+    "category": "churn_signal",
+    "cluster_tag": "api_reliability"
+  },
+  {
+    "source": "hubspot",
+    "actor": "@jordan_cto",
+    "text": "Thinking about switching to an alternative. The product hasn't improved in months and we need better performance and reliability.",
+    "hours_ago": 40,
+    "metrics": {"views": 11, "clicks": 2},
+    "category": "churn_signal",
+    "cluster_tag": null
+  },
+  {
+    "source": "slack",
+    "actor": "@emma_pm",
+    "text": "Just switched to your platform from CompetitorX and the developer experience is 10x better. Love the API documentation and onboarding.",
+    "hours_ago": 15,
+    "metrics": {"reactions": 24, "replies": 8, "thread_views": 112},
+    "category": "community_sentiment",
+    "cluster_tag": null
+  },
+  {
+    "source": "intercom",
+    "actor": "@kai_developer",
+    "text": "Just switched to this from our old tool and I love the signal detection. Exactly what we needed for our product workflow.",
+    "hours_ago": 26,
+    "metrics": {"replies": 3, "views": 19},
+    "category": "community_sentiment",
+    "cluster_tag": null
+  },
+  {
+    "source": "hubspot",
+    "actor": "@sam_growth",
+    "text": "Would recommend this to any team struggling with feedback overload. The analytics module has been a game-changer for prioritization.",
+    "hours_ago": 42,
+    "metrics": {"views": 34, "clicks": 7},
+    "category": "community_sentiment",
+    "cluster_tag": null
+  },
+  {
+    "source": "slack",
+    "actor": "@nina_product",
+    "text": "Can anyone recommend a good feedback intelligence tool? We've been looking for something that actually prioritizes real user signals.",
+    "hours_ago": 55,
+    "metrics": {"reactions": 5, "replies": 12, "thread_views": 89},
+    "category": "community_sentiment",
+    "cluster_tag": null
+  },
+  {
+    "source": "intercom",
+    "actor": "@lisa_qa",
+    "text": "This is the 3rd time I'm reporting this issue — the export function crashes on large datasets. We need this fixed urgently.",
+    "hours_ago": 2,
+    "metrics": {"replies": 6, "views": 41},
+    "category": "support_escalation",
+    "cluster_tag": null
+  },
+  {
+    "source": "hubspot",
+    "actor": "@chen_backend",
+    "text": "We've opened 5 support tickets about the same problem with data sync. Cannot get a resolution and it's affecting our entire pipeline.",
+    "hours_ago": 11,
+    "metrics": {"views": 7, "clicks": 1},
+    "category": "support_escalation",
+    "cluster_tag": null
+  },
+  {
+    "source": "intercom",
+    "actor": "@james_devops",
+    "text": "Frustrated with the lack of response on our API issues. We've been struggling for weeks and the documentation doesn't help at all.",
+    "hours_ago": 30,
+    "metrics": {"replies": 4, "views": 28},
+    "category": "support_escalation",
+    "cluster_tag": "api_reliability"
+  },
+  {
+    "source": "slack",
+    "actor": "@rachel_cfo",
+    "text": "Looking for a better way to track customer feedback across all our channels. Does anyone know a good solution for multi-source aggregation?",
+    "hours_ago": 16,
+    "metrics": {"reactions": 3, "replies": 9, "thread_views": 54},
+    "category": "product_feedback",
+    "cluster_tag": null
+  },
+  {
+    "source": "intercom",
+    "actor": "@nate_design",
+    "text": "The onboarding flow is confusing — I can't figure out how to set up my first project. The UI needs to be more intuitive for new users.",
+    "hours_ago": 34,
+    "metrics": {"replies": 2, "views": 16},
+    "category": "product_feedback",
+    "cluster_tag": null
+  },
+  {
+    "source": "hubspot",
+    "actor": "@david_analyst",
+    "text": "When will API v2 be released? We're evaluating whether to build our integration on the current version or wait for the update.",
+    "hours_ago": 46,
+    "metrics": {"views": 19, "clicks": 3},
+    "category": "product_feedback",
+    "cluster_tag": null
+  },
+  {
+    "source": "slack",
+    "actor": "@maya_startup",
+    "text": "Can anyone recommend a tool for real-time signal detection? We need something that works across Slack, Intercom, and email channels.",
+    "hours_ago": 60,
+    "metrics": {"reactions": 2, "replies": 7, "thread_views": 38},
+    "category": "product_feedback",
+    "cluster_tag": null
+  }
+]

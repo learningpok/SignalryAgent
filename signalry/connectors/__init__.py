@@ -12,6 +12,7 @@ from .base import (
 )
 from .discord import DiscordConnector
 from .mock import MockConnector
+from .realistic_mock import RealisticMockConnector
 from .telegram import TelegramConnector
 
 
@@ -21,4 +22,5 @@ def get_registry() -> ConnectorRegistry:
     registry.register(MockConnector())
     registry.register(TelegramConnector())
     registry.register(DiscordConnector())
+    registry.register(RealisticMockConnector())
     return registry
