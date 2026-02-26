@@ -22,7 +22,10 @@ pipeline = Pipeline(queue=queue)
 registry = get_registry()
 
 class RunRequest(BaseModel):
-    keywords: List[str] = ["pump", "token", "need", "broken", "scam"]
+    keywords: List[str] = ["bug", "feature request", "incident", "presales"]
+
+class ChatRequest(BaseModel):
+    message: str = ""
 
 @app.get("/")
 def root():
@@ -66,6 +69,94 @@ def configure_connector(name: str, config: Dict):
         raise HTTPException(404, f"Connector '{name}' not found")
     connector.configure(config)
     return connector.health()
+
+
+@app.post("/chat")
+def chat(request: ChatRequest):
+    """Deterministic chat — parse keywords, return structured response."""
+    msg = request.message.lower().strip()
+    all_items = queue.list_all(limit=500)
+    stats = queue.stats()
+
+    if any(w in msg for w in ["focus", "priority", "morning", "attention", "important"]):
+        resp_type = "briefing"
+    elif any(w in msg for w in ["critical", "urgent", "emergency"]):
+        resp_type = "critical"
+    elif any(w in msg for w in ["momentum", "pattern", "cluster", "trend", "emerging"]):
+        resp_type = "momentum"
+    elif any(w in msg for w in ["summary", "today", "overview", "status", "recap"]):
+        resp_type = "summary"
+    else:
+        resp_type = "summary"
+
+    if resp_type == "briefing":
+        top = all_items[:5]
+        momentum_count = sum(1 for i in all_items if i.classification.momentum_flag)
+        return {
+            "type": "briefing",
+            "message": f"I scanned {stats['total']} signals across 3 channels. Here\u2019s what needs your attention:",
+            "data": {
+                "signals": [i.to_dict() for i in top],
+                "stats": stats,
+                "momentum_count": momentum_count,
+            },
+        }
+
+    if resp_type == "critical":
+        critical = [i for i in all_items if i.classification.urgency in ("critical", "high")]
+        return {
+            "type": "briefing",
+            "message": f"Found {len(critical)} critical and high-urgency signals requiring immediate attention:",
+            "data": {
+                "signals": [i.to_dict() for i in critical[:10]],
+                "stats": stats,
+                "momentum_count": sum(1 for i in critical if i.classification.momentum_flag),
+            },
+        }
+
+    if resp_type == "momentum":
+        momentum_items = [i for i in all_items if i.classification.momentum_flag]
+        pain_groups: Dict[str, list] = {}
+        for item in momentum_items:
+            pain = item.classification.primary_pain
+            if pain not in pain_groups:
+                pain_groups[pain] = []
+            pain_groups[pain].append(item.to_dict())
+        clusters = [
+            {
+                "pain": pain,
+                "signal_count": len(items),
+                "unique_actors": len(set(i["signal"]["actor"] for i in items)),
+                "sources": list(set(i["signal"]["source"] for i in items)),
+                "signals": items,
+            }
+            for pain, items in pain_groups.items()
+        ]
+        if clusters:
+            parts = [f"{c['signal_count']} signals about {c['pain']}" for c in clusters]
+            message = f"I found {len(clusters)} momentum patterns forming: {', '.join(parts)}."
+        else:
+            message = "No momentum patterns detected yet. Try seeding signals first."
+        return {
+            "type": "momentum",
+            "message": message,
+            "data": {"clusters": clusters, "stats": stats},
+        }
+
+    # Default: summary
+    top3 = all_items[:3]
+    momentum_count = sum(1 for i in all_items if i.classification.momentum_flag)
+    critical_count = sum(1 for i in all_items if i.classification.urgency == "critical")
+    return {
+        "type": "summary",
+        "message": f"{stats['total']} signals in queue \u2014 {stats.get('pending', 0)} pending review, {critical_count} critical, {momentum_count} with momentum.",
+        "data": {
+            "signals": [i.to_dict() for i in top3],
+            "stats": stats,
+            "momentum_count": momentum_count,
+            "critical_count": critical_count,
+        },
+    }
 
 
 @app.get("/signals/stream")

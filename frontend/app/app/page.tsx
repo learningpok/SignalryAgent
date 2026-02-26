@@ -121,13 +121,18 @@ export default function SignalViewer() {
             </span>
             <span className="text-xs text-gray-500 ml-2">Signal Viewer</span>
           </div>
-          <button
-            onClick={runPipeline}
-            disabled={running}
-            className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 disabled:opacity-50 transition"
-          >
-            {running ? "Running..." : "Run Pipeline"}
-          </button>
+          <div className="flex items-center gap-3">
+            <a href="/chat" className="text-xs text-gray-500 hover:text-gray-300 transition">
+              Copilot
+            </a>
+            <button
+              onClick={runPipeline}
+              disabled={running}
+              className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 disabled:opacity-50 transition"
+            >
+              {running ? "Running..." : "Run Pipeline"}
+            </button>
+          </div>
         </div>
       </header>
 

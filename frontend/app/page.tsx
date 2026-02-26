@@ -126,7 +126,7 @@ export default function LandingPage() {
             <a href="#demo">Agent</a>
             <a href="#problem">Problem</a>
             <a href="#solution">Solution</a>
-            <button className="btn-nav">Get early access</button>
+            <a href="/chat" className="btn-nav">Try the Copilot</a>
           </div>
         </div>
       </nav>
@@ -147,7 +147,7 @@ export default function LandingPage() {
           tells you what matters.
         </p>
         <div className="hero-ctas">
-          <button className="btn-primary">Request early access</button>
+          <a href="/chat" className="btn-primary" style={{ textDecoration: "none" }}>Try the Copilot</a>
           <button
             className="btn-secondary"
             onClick={() =>
