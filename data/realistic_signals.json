@@ -6,7 +6,8 @@
     "hours_ago": 3,
     "metrics": {"replies": 3, "views": 45},
     "category": "bug_report",
-    "cluster_tag": "api_reliability"
+    "cluster_tag": "api_reliability",
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -15,7 +16,8 @@
     "hours_ago": 5,
     "metrics": {"reactions": 8, "replies": 5, "thread_views": 34},
     "category": "bug_report",
-    "cluster_tag": "api_reliability"
+    "cluster_tag": "api_reliability",
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -24,7 +26,8 @@
     "hours_ago": 8,
     "metrics": {"replies": 4, "views": 67},
     "category": "bug_report",
-    "cluster_tag": "api_reliability"
+    "cluster_tag": "api_reliability",
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -33,7 +36,8 @@
     "hours_ago": 14,
     "metrics": {"reactions": 12, "replies": 9, "thread_views": 56},
     "category": "bug_report",
-    "cluster_tag": "api_reliability"
+    "cluster_tag": "api_reliability",
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -42,7 +46,8 @@
     "hours_ago": 6,
     "metrics": {"views": 12, "clicks": 3},
     "category": "churn_signal",
-    "cluster_tag": "pricing"
+    "cluster_tag": "pricing",
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -51,7 +56,8 @@
     "hours_ago": 12,
     "metrics": {"reactions": 15, "replies": 7, "thread_views": 89},
     "category": "churn_signal",
-    "cluster_tag": "pricing"
+    "cluster_tag": "pricing",
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -60,7 +66,8 @@
     "hours_ago": 24,
     "metrics": {"views": 8, "clicks": 2},
     "category": "product_feedback",
-    "cluster_tag": "pricing"
+    "cluster_tag": "pricing",
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -69,7 +76,8 @@
     "hours_ago": 4,
     "metrics": {"replies": 2, "views": 31},
     "category": "feature_request",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -78,7 +86,8 @@
     "hours_ago": 10,
     "metrics": {"reactions": 6, "replies": 4, "thread_views": 42},
     "category": "feature_request",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -87,7 +96,8 @@
     "hours_ago": 18,
     "metrics": {"views": 15, "clicks": 4},
     "category": "feature_request",
-    "cluster_tag": "missing_feature"
+    "cluster_tag": "missing_feature",
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -96,7 +106,8 @@
     "hours_ago": 28,
     "metrics": {"replies": 1, "views": 22},
     "category": "feature_request",
-    "cluster_tag": "missing_feature"
+    "cluster_tag": "missing_feature",
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -105,7 +116,8 @@
     "hours_ago": 36,
     "metrics": {"reactions": 19, "replies": 3, "thread_views": 67},
     "category": "feature_request",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -114,7 +126,8 @@
     "hours_ago": 7,
     "metrics": {"replies": 5, "views": 38},
     "category": "bug_report",
-    "cluster_tag": "api_reliability"
+    "cluster_tag": "api_reliability",
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -123,7 +136,8 @@
     "hours_ago": 20,
     "metrics": {"views": 9, "clicks": 1},
     "category": "bug_report",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -132,7 +146,8 @@
     "hours_ago": 32,
     "metrics": {"reactions": 7, "replies": 11, "thread_views": 78},
     "category": "bug_report",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -141,7 +156,8 @@
     "hours_ago": 1,
     "metrics": {"views": 23, "clicks": 5},
     "category": "churn_signal",
-    "cluster_tag": "missing_feature"
+    "cluster_tag": "missing_feature",
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -150,7 +166,8 @@
     "hours_ago": 9,
     "metrics": {"replies": 2, "views": 14},
     "category": "churn_signal",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -159,7 +176,8 @@
     "hours_ago": 22,
     "metrics": {"reactions": 4, "replies": 6, "thread_views": 45},
     "category": "churn_signal",
-    "cluster_tag": "api_reliability"
+    "cluster_tag": "api_reliability",
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -168,7 +186,8 @@
     "hours_ago": 40,
     "metrics": {"views": 11, "clicks": 2},
     "category": "churn_signal",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -177,7 +196,8 @@
     "hours_ago": 15,
     "metrics": {"reactions": 24, "replies": 8, "thread_views": 112},
     "category": "community_sentiment",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -186,7 +206,8 @@
     "hours_ago": 26,
     "metrics": {"replies": 3, "views": 19},
     "category": "community_sentiment",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -195,7 +216,8 @@
     "hours_ago": 42,
     "metrics": {"views": 34, "clicks": 7},
     "category": "community_sentiment",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -204,7 +226,8 @@
     "hours_ago": 55,
     "metrics": {"reactions": 5, "replies": 12, "thread_views": 89},
     "category": "community_sentiment",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -213,7 +236,8 @@
     "hours_ago": 2,
     "metrics": {"replies": 6, "views": 41},
     "category": "support_escalation",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -222,7 +246,8 @@
     "hours_ago": 11,
     "metrics": {"views": 7, "clicks": 1},
     "category": "support_escalation",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -231,7 +256,8 @@
     "hours_ago": 30,
     "metrics": {"replies": 4, "views": 28},
     "category": "support_escalation",
-    "cluster_tag": "api_reliability"
+    "cluster_tag": "api_reliability",
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -240,7 +266,8 @@
     "hours_ago": 16,
     "metrics": {"reactions": 3, "replies": 9, "thread_views": 54},
     "category": "product_feedback",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "intercom",
@@ -249,7 +276,8 @@
     "hours_ago": 34,
     "metrics": {"replies": 2, "views": 16},
     "category": "product_feedback",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "hubspot",
@@ -258,7 +286,8 @@
     "hours_ago": 46,
     "metrics": {"views": 19, "clicks": 3},
     "category": "product_feedback",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
   },
   {
     "source": "slack",
@@ -267,6 +296,249 @@
     "hours_ago": 60,
     "metrics": {"reactions": 2, "replies": 7, "thread_views": 38},
     "category": "product_feedback",
-    "cluster_tag": null
+    "cluster_tag": null,
+    "personas": ["product"]
+  },
+
+  {
+    "source": "x",
+    "actor": "@whale_tracker",
+    "text": "Is this another scam token? The team hasn't shown any real product yet. Need to see proof they're actually building something.",
+    "hours_ago": 2,
+    "metrics": {"likes": 34, "retweets": 12, "replies": 8},
+    "category": "trust_concern",
+    "cluster_tag": "trust_security",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "telegram",
+    "actor": "@defi_chad",
+    "text": "When token launch? Community has been waiting for months. Need a concrete release date or people will leave.",
+    "hours_ago": 4,
+    "metrics": {"reactions": 18, "replies": 22},
+    "category": "token_demand",
+    "cluster_tag": "token_utility",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "x",
+    "actor": "@crypto_analyst",
+    "text": "The tokenomics look unsustainable — inflation rate is way too high. This utility model doesn't work long-term for holders.",
+    "hours_ago": 6,
+    "metrics": {"likes": 89, "retweets": 31, "replies": 15},
+    "category": "token_concern",
+    "cluster_tag": "token_utility",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "discord",
+    "actor": "@nft_degen",
+    "text": "Rug alert: dev wallet just moved 40% of supply. This looks like a honeypot setup to drain community liquidity.",
+    "hours_ago": 1,
+    "metrics": {"reactions": 45, "replies": 67},
+    "category": "trust_concern",
+    "cluster_tag": "trust_security",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "telegram",
+    "actor": "@eth_builder",
+    "text": "Just switched to this protocol from the old bridge. The dev experience is solid and they're actually shipping features.",
+    "hours_ago": 12,
+    "metrics": {"reactions": 8, "replies": 3},
+    "category": "community_sentiment",
+    "cluster_tag": null,
+    "personas": ["crypto"]
+  },
+  {
+    "source": "x",
+    "actor": "@alpha_caller",
+    "text": "Need to see actual shipping and building before anyone invests. Too many vaporware projects with zero real utility.",
+    "hours_ago": 8,
+    "metrics": {"likes": 156, "retweets": 44, "replies": 23},
+    "category": "trust_concern",
+    "cluster_tag": "token_utility",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "discord",
+    "actor": "@dao_voter",
+    "text": "When airdrop? Team keeps promising but never delivers. Starting to feel like a scam — other projects are shipping while we get nothing.",
+    "hours_ago": 5,
+    "metrics": {"reactions": 32, "replies": 19},
+    "category": "token_demand",
+    "cluster_tag": "token_utility",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "x",
+    "actor": "@token_skeptic",
+    "text": "This is looking like a drain — no dev update in three weeks. Possible scam. The team is ghosting everyone.",
+    "hours_ago": 3,
+    "metrics": {"likes": 67, "retweets": 28, "replies": 41},
+    "category": "trust_concern",
+    "cluster_tag": "trust_security",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "telegram",
+    "actor": "@web3_dev",
+    "text": "Critical bug in the smart contract — funds could be at risk. Need an immediate audit before this gets exploited by bad actors.",
+    "hours_ago": 1,
+    "metrics": {"reactions": 56, "replies": 34},
+    "category": "bug_report",
+    "cluster_tag": "trust_security",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "discord",
+    "actor": "@crypto_whale",
+    "text": "Evaluating whether to hold or dump the token. The use case isn't clear and competitors are building faster than this team.",
+    "hours_ago": 9,
+    "metrics": {"reactions": 23, "replies": 15},
+    "category": "churn_signal",
+    "cluster_tag": "token_utility",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "x",
+    "actor": "@defi_farmer",
+    "text": "Looking for a token with real utility in this space. Everything so far has been vaporware with no real product behind it.",
+    "hours_ago": 16,
+    "metrics": {"likes": 42, "retweets": 11, "replies": 7},
+    "category": "token_demand",
+    "cluster_tag": "token_utility",
+    "personas": ["crypto"]
+  },
+  {
+    "source": "telegram",
+    "actor": "@chain_watcher",
+    "text": "Latest dev update: the release looks promising but tokenomics still need fixing. Community wants more transparency from the team.",
+    "hours_ago": 10,
+    "metrics": {"reactions": 14, "replies": 9},
+    "category": "product_feedback",
+    "cluster_tag": "token_utility",
+    "personas": ["crypto"]
+  },
+
+  {
+    "source": "hubspot",
+    "actor": "@enterprise_buyer",
+    "text": "We need an enterprise solution that handles 10k+ users. Current pricing doesn't scale for our team size at all.",
+    "hours_ago": 3,
+    "metrics": {"views": 8, "clicks": 2},
+    "category": "presales",
+    "cluster_tag": "enterprise_pricing",
+    "personas": ["sales"]
+  },
+  {
+    "source": "slack",
+    "actor": "@sales_lead",
+    "text": "Comparing your platform vs CompetitorX for our Q2 rollout. Need a custom demo showing our specific use case.",
+    "hours_ago": 5,
+    "metrics": {"reactions": 4, "replies": 6, "thread_views": 28},
+    "category": "presales",
+    "cluster_tag": null,
+    "personas": ["sales"]
+  },
+  {
+    "source": "intercom",
+    "actor": "@cto_prospect",
+    "text": "Feature request: we're missing SSO integration and it's a must-have for our security requirements. Can't evaluate without it.",
+    "hours_ago": 7,
+    "metrics": {"replies": 3, "views": 19},
+    "category": "feature_request",
+    "cluster_tag": "integration_gaps",
+    "personas": ["sales"]
+  },
+  {
+    "source": "hubspot",
+    "actor": "@procurement_mgr",
+    "text": "The pricing structure is unclear for enterprise buyers. We need a better breakdown of cost per seat before we can approve the purchase.",
+    "hours_ago": 10,
+    "metrics": {"views": 14, "clicks": 5},
+    "category": "presales",
+    "cluster_tag": "enterprise_pricing",
+    "personas": ["sales"]
+  },
+  {
+    "source": "slack",
+    "actor": "@vp_engineering",
+    "text": "Evaluating whether to switch to your platform. Can't deal with the broken API on our current tool anymore — need reliability.",
+    "hours_ago": 8,
+    "metrics": {"reactions": 7, "replies": 4, "thread_views": 31},
+    "category": "presales",
+    "cluster_tag": null,
+    "personas": ["sales"]
+  },
+  {
+    "source": "intercom",
+    "actor": "@startup_ceo",
+    "text": "Looking for a solution that scales from 50 to 5000 users. What's your pricing model for growth-stage startups?",
+    "hours_ago": 12,
+    "metrics": {"replies": 2, "views": 11},
+    "category": "presales",
+    "cluster_tag": "enterprise_pricing",
+    "personas": ["sales"]
+  },
+  {
+    "source": "hubspot",
+    "actor": "@team_lead",
+    "text": "We dropped CompetitorX because their support was broken. Need better reliability guarantees before we commit to a new vendor.",
+    "hours_ago": 6,
+    "metrics": {"views": 17, "clicks": 4},
+    "category": "churn_signal",
+    "cluster_tag": null,
+    "personas": ["sales"]
+  },
+  {
+    "source": "slack",
+    "actor": "@it_director",
+    "text": "Cannot get the API to integrate with our SAML provider. This is a critical bug blocking our enterprise pilot evaluation.",
+    "hours_ago": 2,
+    "metrics": {"reactions": 9, "replies": 5, "thread_views": 42},
+    "category": "bug_report",
+    "cluster_tag": "integration_gaps",
+    "personas": ["sales"]
+  },
+  {
+    "source": "intercom",
+    "actor": "@head_of_product",
+    "text": "When will you add multi-tenant support? Our team requires this for client deployments and it's currently missing from the platform.",
+    "hours_ago": 14,
+    "metrics": {"replies": 4, "views": 26},
+    "category": "feature_request",
+    "cluster_tag": "integration_gaps",
+    "personas": ["sales"]
+  },
+  {
+    "source": "hubspot",
+    "actor": "@account_exec",
+    "text": "Thinking about switching back to our old vendor. The missing reporting features are a dealbreaker for our enterprise clients.",
+    "hours_ago": 9,
+    "metrics": {"views": 12, "clicks": 3},
+    "category": "churn_signal",
+    "cluster_tag": "integration_gaps",
+    "personas": ["sales"]
+  },
+  {
+    "source": "slack",
+    "actor": "@ops_manager",
+    "text": "Need urgent help — the data import feature is broken and our trial expires Friday. Can't complete our enterprise evaluation.",
+    "hours_ago": 1,
+    "metrics": {"reactions": 11, "replies": 8, "thread_views": 56},
+    "category": "support_escalation",
+    "cluster_tag": null,
+    "personas": ["sales"]
+  },
+  {
+    "source": "intercom",
+    "actor": "@chief_data",
+    "text": "Frustrated with the lack of SSO and RBAC features. Our enterprise clients require these and they're missing from the platform entirely.",
+    "hours_ago": 18,
+    "metrics": {"replies": 5, "views": 33},
+    "category": "feature_request",
+    "cluster_tag": "integration_gaps",
+    "personas": ["sales"]
   }
 ]

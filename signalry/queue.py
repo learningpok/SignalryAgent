@@ -86,6 +86,18 @@ class ReviewQueue:
                     ON classifications(primary_pain);
             """)
 
+    def clear(self) -> int:
+        """Delete all signals, classifications, and queue entries. Returns count removed."""
+        with self._conn() as conn:
+            count = conn.execute("SELECT COUNT(*) FROM signals").fetchone()[0]
+            conn.executescript("""
+                DELETE FROM review_queue;
+                DELETE FROM classifications;
+                DELETE FROM outcomes;
+                DELETE FROM signals;
+            """)
+        return count
+
     # ── Add signals + classifications ───────────────────────────────────
 
     def add(self, signal: Signal, classification: Classification) -> bool:

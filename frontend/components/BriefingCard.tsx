@@ -39,6 +39,8 @@ const SOURCE_COLORS: Record<string, string> = {
   slack: "bg-purple-500/10 text-purple-400 border-purple-500/20",
   hubspot: "bg-orange-500/10 text-orange-400 border-orange-500/20",
   x: "bg-white/[0.06] text-gray-400 border-white/[0.08]",
+  telegram: "bg-sky-500/10 text-sky-400 border-sky-500/20",
+  discord: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
 };
 
 export default function BriefingCard({ signals, onSelect }: BriefingCardProps) {

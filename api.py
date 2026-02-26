@@ -175,10 +175,18 @@ def stream_signals(since: Optional[str] = None, limit: int = 50):
 
 
 @app.post("/signals/seed")
-def seed_signals():
-    """Generate a batch of realistic signals for demo purposes."""
+def seed_signals(persona: Optional[str] = None, clear: bool = False):
+    """Generate a batch of realistic signals for demo purposes.
+
+    Args:
+        persona: Filter signals by persona (product/crypto/sales). Clears queue first.
+        clear: If True, clear the queue before seeding.
+    """
+    if persona or clear:
+        queue.clear()
+
     connector = RealisticMockConnector()
-    raw_signals = connector.fetch(keywords=[], limit=30)
+    raw_signals = connector.fetch(keywords=[], limit=50, persona=persona)
 
     filtered = filter_signals(raw_signals)
     classifier = MockClassifier()
@@ -202,4 +210,5 @@ def seed_signals():
         "after_filter": len(filtered),
         "momentum_clusters": len(momentum),
         "momentum": momentum,
+        "persona": persona,
     }

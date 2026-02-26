@@ -41,6 +41,7 @@ class RealisticMockConnector(PullConnector):
         keywords: List[str],
         since: Optional[datetime] = None,
         limit: int = 100,
+        persona: Optional[str] = None,
     ) -> List[Signal]:
         """Generate signals from the template pool with dynamic timestamps."""
         pool = self._load_pool()
@@ -48,6 +49,12 @@ class RealisticMockConnector(PullConnector):
 
         signals: List[Signal] = []
         for i, item in enumerate(pool):
+            # Persona filter
+            if persona:
+                item_personas = item.get("personas", [])
+                if persona not in item_personas:
+                    continue
+
             hours_ago = item.get("hours_ago", 0)
             ts = now - timedelta(hours=hours_ago)
 
