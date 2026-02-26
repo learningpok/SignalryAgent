@@ -300,7 +300,7 @@ export default function LiveDemo() {
               animation: "chatIn .5s ease forwards",
             }}>
               <a
-                href="/chat"
+                href="/login"
                 style={{
                   display: "inline-block",
                   padding: "10px 28px",
@@ -320,7 +320,7 @@ export default function LiveDemo() {
         </div>
 
         {/* Input bar — clicking opens real chat */}
-        <div className="chat-input-bar" onClick={() => window.location.href = "/chat"} style={{ cursor: "pointer" }}>
+        <div className="chat-input-bar" onClick={() => window.location.href = "/login"} style={{ cursor: "pointer" }}>
           <div className="chat-input">Ask about signals, trends, or priorities{"\u2026"}</div>
           <button className="chat-send">
             <svg viewBox="0 0 24 24">

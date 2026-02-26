@@ -1,3 +1,9 @@
+import base64
+import hashlib
+import hmac
+import json
+import os
+import time
 from datetime import datetime
 from typing import Dict, List, Optional
 
@@ -17,6 +23,36 @@ from signalry.queue import ReviewQueue
 app = FastAPI(title="Signalry API")
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:3000"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
+
+# ── Auth helpers ────────────────────────────────────────────────────────────
+
+def _get_secret() -> str:
+    return os.environ.get("SIGNALRY_SECRET", "dev-secret-change-me")
+
+
+def _get_invite_codes() -> list[str]:
+    raw = os.environ.get("SIGNALRY_INVITE_CODES", "")
+    return [c.strip() for c in raw.split(",") if c.strip()]
+
+
+def create_token(code: str, expires_days: int = 30) -> str:
+    payload = {"code": code, "exp": int(time.time()) + expires_days * 86400}
+    payload_b64 = base64.urlsafe_b64encode(json.dumps(payload).encode()).decode()
+    sig = hmac.new(_get_secret().encode(), payload_b64.encode(), hashlib.sha256).hexdigest()
+    return f"{payload_b64}.{sig}"
+
+
+def verify_token(token: str) -> bool:
+    try:
+        payload_b64, sig = token.rsplit(".", 1)
+        expected = hmac.new(_get_secret().encode(), payload_b64.encode(), hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(sig, expected):
+            return False
+        payload = json.loads(base64.urlsafe_b64decode(payload_b64))
+        return payload.get("exp", 0) > time.time()
+    except Exception:
+        return False
+
 queue = ReviewQueue()
 pipeline = Pipeline(queue=queue)
 registry = get_registry()
@@ -27,9 +63,23 @@ class RunRequest(BaseModel):
 class ChatRequest(BaseModel):
     message: str = ""
 
+class AuthRequest(BaseModel):
+    code: str
+
 @app.get("/")
 def root():
     return {"status": "ok"}
+
+
+@app.post("/auth/verify")
+def auth_verify(request: AuthRequest):
+    codes = _get_invite_codes()
+    if not codes:
+        raise HTTPException(503, "No invite codes configured")
+    if request.code not in codes:
+        raise HTTPException(401, "Invalid invite code")
+    token = create_token(request.code)
+    return {"token": token, "expires_in_days": 30}
 
 @app.get("/signals")
 def list_signals(status: str = "pending", limit: int = 50):

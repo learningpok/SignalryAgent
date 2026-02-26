@@ -12,6 +12,7 @@ data/signalry.db
 # Environment
 .env
 .env.*
+!.env.example
 
 # OS
 .DS_Store

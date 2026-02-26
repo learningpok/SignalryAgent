@@ -127,7 +127,7 @@ export default function LandingPage() {
             <a href="#demo">Agent</a>
             <a href="#problem">Problem</a>
             <a href="#solution">Solution</a>
-            <a href="/chat" className="btn-nav">Try the Copilot</a>
+            <a href="/login" className="btn-nav">Try the Copilot</a>
           </div>
         </div>
       </nav>
@@ -148,7 +148,7 @@ export default function LandingPage() {
           tells you what matters.
         </p>
         <div className="hero-ctas">
-          <a href="/chat" className="btn-primary" style={{ textDecoration: "none" }}>Try the Copilot</a>
+          <a href="/login" className="btn-primary" style={{ textDecoration: "none" }}>Try the Copilot</a>
           <button
             className="btn-secondary"
             onClick={() =>
@@ -608,7 +608,7 @@ export default function LandingPage() {
               Signalry is in private alpha. We{"\u2019"}re onboarding teams that
               drown in signal and need to focus.
             </p>
-            <button className="btn-primary">Request early access</button>
+            <a href="/login" className="btn-primary" style={{ textDecoration: "none" }}>Request early access</a>
           </div>
         </div>
       </section>

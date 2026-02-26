@@ -66,6 +66,11 @@ function ConfidenceCircle({ value, size = "sm" }: { value: number; size?: "sm" |
   );
 }
 
+const handleLogout = () => {
+  document.cookie = "signalry_token=; path=/; max-age=0";
+  window.location.href = "/";
+};
+
 export default function SignalViewer() {
   const [signals, setSignals] = useState<ReviewItem[]>([]);
   const [selected, setSelected] = useState<ReviewItem | null>(null);
@@ -131,6 +136,9 @@ export default function SignalViewer() {
               className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 disabled:opacity-50 transition"
             >
               {running ? "Running..." : "Run Pipeline"}
+            </button>
+            <button onClick={handleLogout} className="text-xs text-gray-500 hover:text-gray-300 transition">
+              Logout
             </button>
           </div>
         </div>

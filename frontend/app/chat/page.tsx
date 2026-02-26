@@ -118,6 +118,11 @@ export default function ChatPage() {
     [sending, scrollToBottom]
   );
 
+  const handleLogout = () => {
+    document.cookie = "signalry_token=; path=/; max-age=0";
+    window.location.href = "/";
+  };
+
   // Auto-focus input on mount
   useEffect(() => {
     inputRef.current?.focus();
@@ -158,6 +163,9 @@ export default function ChatPage() {
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[11px] text-[#5C5C6F]">Monitoring 3 channels</span>
             </div>
+            <button onClick={handleLogout} className="text-xs text-gray-500 hover:text-gray-300 transition">
+              Logout
+            </button>
           </div>
         </div>
       </header>
