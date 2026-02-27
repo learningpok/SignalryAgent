@@ -1,6 +1,6 @@
 /**
  * BriefingCard — priority briefing showing top ranked signals.
- * Matches the landing page .chat-data card styling.
+ * Light theme matching landing page aesthetic.
  */
 
 interface SignalItem {
@@ -28,26 +28,26 @@ interface BriefingCardProps {
 }
 
 const SCORE_STYLE: Record<string, string> = {
-  critical: "bg-red-500/15 text-red-500",
-  high: "bg-orange-500/12 text-amber-600",
-  medium: "bg-yellow-500/10 text-yellow-500",
-  low: "bg-emerald-500/10 text-emerald-500",
+  critical: "bg-red-100 text-red-700",
+  high: "bg-orange-100 text-orange-700",
+  medium: "bg-yellow-100 text-yellow-700",
+  low: "bg-emerald-100 text-emerald-700",
 };
 
 const SOURCE_COLORS: Record<string, string> = {
-  intercom: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-  slack: "bg-purple-500/10 text-purple-400 border-purple-500/20",
-  hubspot: "bg-orange-500/10 text-orange-400 border-orange-500/20",
-  x: "bg-white/[0.06] text-gray-400 border-white/[0.08]",
-  telegram: "bg-sky-500/10 text-sky-400 border-sky-500/20",
-  discord: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+  intercom: "bg-blue-50 text-blue-600 border-blue-200",
+  slack: "bg-purple-50 text-purple-600 border-purple-200",
+  hubspot: "bg-orange-50 text-orange-600 border-orange-200",
+  x: "bg-gray-50 text-gray-600 border-gray-200",
+  telegram: "bg-sky-50 text-sky-600 border-sky-200",
+  discord: "bg-indigo-50 text-indigo-600 border-indigo-200",
 };
 
 export default function BriefingCard({ signals, onSelect }: BriefingCardProps) {
   if (!signals.length) return null;
 
   return (
-    <div className="mt-2.5 bg-[#1C1C20] border border-white/[0.06] rounded-[10px] px-3.5 py-3 text-[12.5px] leading-[1.55]">
+    <div className="mt-2.5 bg-white border border-gray-200 rounded-[10px] px-3.5 py-3 text-[12.5px] leading-[1.55] shadow-sm">
       {signals.map((item, i) => {
         const score = (item.classification.confidence * 10).toFixed(1);
         const urgency = item.classification.urgency;
@@ -59,8 +59,8 @@ export default function BriefingCard({ signals, onSelect }: BriefingCardProps) {
             key={item.signal.id}
             onClick={() => onSelect?.(item)}
             className={`flex items-start gap-2 py-1.5 ${
-              i < signals.length - 1 ? "border-b border-white/[0.04]" : ""
-            } ${onSelect ? "cursor-pointer hover:bg-white/[0.02] -mx-1.5 px-1.5 rounded-lg transition" : ""}`}
+              i < signals.length - 1 ? "border-b border-gray-100" : ""
+            } ${onSelect ? "cursor-pointer hover:bg-gray-50 -mx-1.5 px-1.5 rounded-lg transition" : ""}`}
           >
             <div
               className={`font-serif font-bold min-w-[32px] h-6 flex items-center justify-center rounded-md text-xs shrink-0 ${scoreClass}`}
@@ -68,18 +68,18 @@ export default function BriefingCard({ signals, onSelect }: BriefingCardProps) {
               {score}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-semibold text-[#F0F0F5] text-[12.5px] truncate">
+              <div className="font-semibold text-gray-900 text-[12.5px] truncate">
                 {item.classification.primary_pain || item.signal.text.slice(0, 60)}
               </div>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="text-[11px] text-[#5C5C6F]">
+                <span className="text-[11px] text-gray-500">
                   {item.signal.actor}
                 </span>
                 <span className={`text-[9px] px-1.5 py-px rounded border ${sourceClass}`}>
                   {item.signal.source}
                 </span>
                 {item.classification.momentum_flag && (
-                  <span className="text-[9px] px-1.5 py-px rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <span className="text-[9px] px-1.5 py-px rounded bg-amber-100 text-amber-700 border border-amber-200">
                     momentum
                   </span>
                 )}
@@ -88,11 +88,11 @@ export default function BriefingCard({ signals, onSelect }: BriefingCardProps) {
             <span
               className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${
                 urgency === "critical"
-                  ? "bg-red-500/15 text-red-300"
+                  ? "bg-red-100 text-red-700"
                   : urgency === "high"
-                  ? "bg-orange-500/15 text-orange-300"
+                  ? "bg-orange-100 text-orange-700"
                   : urgency === "medium"
-                  ? "bg-yellow-500/15 text-yellow-300"
+                  ? "bg-yellow-100 text-yellow-700"
                   : "text-gray-500"
               }`}
             >

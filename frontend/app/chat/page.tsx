@@ -145,25 +145,25 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-[#0a0a0a] text-white">
+    <div className="h-screen flex flex-col bg-[#fafafa] text-gray-900">
       {/* Header */}
-      <header className="border-b border-white/[0.06] bg-[#0a0a0a]/80 backdrop-blur-xl shrink-0 z-40">
+      <header className="border-b border-gray-200 bg-white/80 backdrop-blur-xl shrink-0 z-40">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <a href="/" className="text-xl font-serif font-semibold tracking-tight hover:opacity-80 transition">
-              Signal<span className="text-indigo-400">ry</span>
+            <a href="/" className="text-xl font-serif font-semibold tracking-tight hover:opacity-80 transition text-gray-900">
+              Signal<span className="text-indigo-600">ry</span>
             </a>
             <span className="text-xs text-gray-500 hidden sm:inline">Copilot</span>
           </div>
           <div className="flex items-center gap-4">
-            <a href="/app" className="text-xs text-gray-500 hover:text-gray-300 transition">
+            <a href="/app" className="text-xs text-gray-500 hover:text-gray-700 transition">
               Signal Viewer
             </a>
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[11px] text-[#5C5C6F]">Monitoring 3 channels</span>
+              <span className="text-[11px] text-gray-500">Monitoring 3 channels</span>
             </div>
-            <button onClick={handleLogout} className="text-xs text-gray-500 hover:text-gray-300 transition">
+            <button onClick={handleLogout} className="text-xs text-gray-500 hover:text-gray-700 transition">
               Logout
             </button>
           </div>
@@ -179,11 +179,11 @@ export default function ChatPage() {
           {/* Empty state — presets */}
           {messages.length === 0 && (
             <div className="flex-1 flex flex-col items-center justify-center py-20">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-indigo-500/5 border border-indigo-500/15 flex items-center justify-center mb-5">
-                <span className="text-xl font-bold text-indigo-300 font-serif">S</span>
+              <div className="w-12 h-12 rounded-2xl bg-indigo-100 border border-indigo-200 flex items-center justify-center mb-5">
+                <span className="text-xl font-bold text-indigo-600 font-serif">S</span>
               </div>
-              <h2 className="text-lg font-semibold text-[#F0F0F5] mb-1">What deserves attention?</h2>
-              <p className="text-sm text-[#5C5C6F] mb-8 text-center max-w-sm">
+              <h2 className="text-lg font-semibold text-gray-900 mb-1">What deserves attention?</h2>
+              <p className="text-sm text-gray-500 mb-8 text-center max-w-sm">
                 Ask Signalry about your signals, priorities, and momentum patterns.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full max-w-lg">
@@ -191,7 +191,7 @@ export default function ChatPage() {
                   <button
                     key={preset}
                     onClick={() => sendMessage(preset)}
-                    className="text-left px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-sm text-[#8B8B9E] hover:bg-white/[0.06] hover:text-[#F0F0F5] hover:border-white/[0.1] transition-all"
+                    className="text-left px-4 py-3 rounded-xl bg-white border border-gray-200 text-sm text-gray-700 hover:bg-gray-50 hover:border-indigo-300 hover:text-gray-900 transition-all shadow-sm"
                   >
                     {preset}
                   </button>
@@ -245,11 +245,11 @@ export default function ChatPage() {
 
                   {/* Stats footer */}
                   {msg.response?.data.stats && (
-                    <div className="flex items-center gap-3 mt-2 text-[11px] text-[#5C5C6F]">
+                    <div className="flex items-center gap-3 mt-2 text-[11px] text-gray-500">
                       <span>{msg.response.data.stats.total || 0} total</span>
                       <span>{msg.response.data.stats.pending || 0} pending</span>
                       {(msg.response.data.momentum_count ?? 0) > 0 && (
-                        <span className="text-amber-400/70">
+                        <span className="text-amber-600">
                           {msg.response.data.momentum_count} momentum
                         </span>
                       )}
@@ -264,9 +264,9 @@ export default function ChatPage() {
           {sending && (
             <ChatMessage role="agent">
               <div className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#5C5C6F] animate-[typingDot_1.2s_ease-in-out_infinite]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-[#5C5C6F] animate-[typingDot_1.2s_ease-in-out_0.15s_infinite]" />
-                <span className="w-1.5 h-1.5 rounded-full bg-[#5C5C6F] animate-[typingDot_1.2s_ease-in-out_0.3s_infinite]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-[typingDot_1.2s_ease-in-out_infinite]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-[typingDot_1.2s_ease-in-out_0.15s_infinite]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-[typingDot_1.2s_ease-in-out_0.3s_infinite]" />
               </div>
             </ChatMessage>
           )}
@@ -274,7 +274,7 @@ export default function ChatPage() {
       </div>
 
       {/* Input bar */}
-      <div className="border-t border-white/[0.06] bg-[#0a0a0a]/90 backdrop-blur-xl shrink-0">
+      <div className="border-t border-gray-200 bg-white/90 backdrop-blur-xl shrink-0">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-2.5">
           <input
             ref={inputRef}
@@ -287,13 +287,13 @@ export default function ChatPage() {
                 sendMessage(input);
               }
             }}
-            placeholder="Ask Signalry what matters\u2026"
-            className="flex-1 bg-white/[0.05] border border-white/[0.08] rounded-[10px] px-3.5 py-2.5 text-[13px] text-[#F0F0F5] placeholder-[#5C5C6F] outline-none focus:border-indigo-500/30 transition"
+            placeholder="Ask Signalry what matters…"
+            className="flex-1 bg-white border border-gray-300 rounded-[10px] px-3.5 py-2.5 text-[13px] text-gray-900 placeholder-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-sm transition"
           />
           <button
             onClick={() => sendMessage(input)}
             disabled={!input.trim() || sending}
-            className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center hover:scale-105 disabled:opacity-40 transition shrink-0"
+            className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center hover:bg-indigo-500 hover:scale-105 disabled:opacity-40 transition shrink-0"
           >
             <svg viewBox="0 0 24 24" className="w-4 h-4 stroke-white fill-none" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
               <line x1="22" y1="2" x2="11" y2="13" />

@@ -1,6 +1,6 @@
 /**
  * SignalCard — expanded view of a single signal with classification and actions.
- * Orange left-border for recommended action, matching signal viewer pattern.
+ * Light theme matching landing page aesthetic.
  */
 
 const API = "http://localhost:8000";
@@ -31,18 +31,18 @@ interface SignalCardProps {
 }
 
 const URGENCY_COLORS: Record<string, string> = {
-  critical: "bg-red-500/15 text-red-300 border-red-500/20",
-  high: "bg-orange-500/15 text-orange-300 border-orange-500/20",
-  medium: "bg-yellow-500/15 text-yellow-300 border-yellow-500/20",
-  low: "bg-white/[0.06] text-gray-500 border-white/[0.06]",
+  critical: "bg-red-100 text-red-700 border-red-200",
+  high: "bg-orange-100 text-orange-700 border-orange-200",
+  medium: "bg-yellow-100 text-yellow-700 border-yellow-200",
+  low: "bg-gray-100 text-gray-500 border-gray-200",
 };
 
 const INTENT_COLORS: Record<string, string> = {
-  exploring: "bg-blue-500/15 text-blue-300 border-blue-500/20",
-  evaluating: "bg-purple-500/15 text-purple-300 border-purple-500/20",
-  requesting: "bg-emerald-500/15 text-emerald-300 border-emerald-500/20",
-  churning: "bg-red-500/15 text-red-300 border-red-500/20",
-  advocating: "bg-cyan-500/15 text-cyan-300 border-cyan-500/20",
+  exploring: "bg-blue-100 text-blue-700 border-blue-200",
+  evaluating: "bg-purple-100 text-purple-700 border-purple-200",
+  requesting: "bg-emerald-100 text-emerald-700 border-emerald-200",
+  churning: "bg-red-100 text-red-700 border-red-200",
+  advocating: "bg-cyan-100 text-cyan-700 border-cyan-200",
 };
 
 export default function SignalCard({ item, onAction }: SignalCardProps) {
@@ -59,16 +59,16 @@ export default function SignalCard({ item, onAction }: SignalCardProps) {
   };
 
   return (
-    <div className="mt-2.5 bg-[#1C1C20] border border-white/[0.06] rounded-[10px] px-3.5 py-3 text-[12.5px] space-y-2.5">
+    <div className="mt-2.5 bg-white border border-gray-200 rounded-[10px] px-3.5 py-3 text-[12.5px] space-y-2.5 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-[#F0F0F5] text-[13px]">{signal.actor}</span>
-          <span className="text-[10px] px-1.5 py-px rounded bg-white/[0.05] text-[#5C5C6F] border border-white/[0.06]">
+          <span className="font-semibold text-gray-900 text-[13px]">{signal.actor}</span>
+          <span className="text-[10px] px-1.5 py-px rounded bg-gray-100 text-gray-500 border border-gray-200">
             {signal.source}
           </span>
         </div>
-        <span className="text-[10px] text-[#5C5C6F]">
+        <span className="text-[10px] text-gray-500">
           {new Date(signal.timestamp).toLocaleString(undefined, {
             month: "short",
             day: "numeric",
@@ -79,7 +79,7 @@ export default function SignalCard({ item, onAction }: SignalCardProps) {
       </div>
 
       {/* Full text */}
-      <p className="text-[13px] text-[#8B8B9E] leading-relaxed">{signal.text}</p>
+      <p className="text-[13px] text-gray-600 leading-relaxed">{signal.text}</p>
 
       {/* Classification badges */}
       <div className="flex items-center gap-1.5 flex-wrap">
@@ -89,11 +89,11 @@ export default function SignalCard({ item, onAction }: SignalCardProps) {
         <span className={`px-2 py-0.5 text-[10px] font-medium rounded-full border ${INTENT_COLORS[classification.intent_stage] || ""}`}>
           {classification.intent_stage}
         </span>
-        <span className="px-2 py-0.5 text-[10px] rounded-full bg-white/[0.04] text-[#8B8B9E]">
+        <span className="px-2 py-0.5 text-[10px] rounded-full bg-gray-100 text-gray-600">
           {classification.primary_pain}
         </span>
         {classification.momentum_flag && (
-          <span className="px-2 py-0.5 text-[10px] font-medium rounded-full border bg-amber-500/15 text-amber-300 border-amber-500/20">
+          <span className="px-2 py-0.5 text-[10px] font-medium rounded-full border bg-amber-100 text-amber-700 border-amber-200">
             momentum
           </span>
         )}
@@ -101,7 +101,7 @@ export default function SignalCard({ item, onAction }: SignalCardProps) {
 
       {/* Recommended action — orange left border */}
       {classification.recommended_action && (
-        <div className="text-[12.5px] text-[#8B8B9E] bg-white/[0.03] border-l-2 border-orange-400/70 rounded-r-lg px-3 py-2">
+        <div className="text-[12.5px] text-gray-600 bg-gray-50 border-l-2 border-orange-400 rounded-r-lg px-3 py-2">
           {classification.recommended_action}
         </div>
       )}
@@ -117,7 +117,7 @@ export default function SignalCard({ item, onAction }: SignalCardProps) {
           </button>
           <button
             onClick={discard}
-            className="flex-1 px-3 py-1.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-gray-400 text-[12px] font-medium rounded-lg transition"
+            className="flex-1 px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 text-gray-600 text-[12px] font-medium rounded-lg transition"
           >
             Discard
           </button>

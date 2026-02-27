@@ -45,23 +45,23 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-[#fafafa] px-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-serif font-semibold tracking-tight text-white">
-            Signal<span className="text-indigo-400">ry</span>
+          <h1 className="text-3xl font-serif font-semibold tracking-tight text-gray-900">
+            Signal<span className="text-indigo-600">ry</span>
           </h1>
-          <p className="text-sm text-[#5C5C6F] mt-2">Private alpha access</p>
+          <p className="text-sm text-gray-500 mt-2">Private alpha access</p>
         </div>
 
         {/* Card */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.06] rounded-2xl p-6 space-y-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]"
+          className="bg-white border border-gray-200 rounded-xl p-6 space-y-4 shadow-sm"
         >
           <div>
-            <label htmlFor="invite-code" className="block text-xs text-[#5C5C6F] uppercase tracking-wider mb-2">
+            <label htmlFor="invite-code" className="block text-xs text-gray-500 uppercase tracking-wider mb-2">
               Invite code
             </label>
             <input
@@ -71,26 +71,26 @@ function LoginForm() {
               onChange={(e) => setCode(e.target.value)}
               placeholder="Enter your invite code"
               autoFocus
-              className="w-full bg-white/[0.05] border border-white/[0.08] rounded-lg px-3.5 py-2.5 text-sm text-[#F0F0F5] placeholder-[#5C5C6F] outline-none focus:border-indigo-500/30 transition"
+              className="w-full bg-white border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
             />
           </div>
 
           {error && (
-            <p className="text-sm text-red-400">{error}</p>
+            <p className="text-sm text-red-600">{error}</p>
           )}
 
           <button
             type="submit"
             disabled={!code.trim() || loading}
-            className="w-full px-4 py-2.5 bg-gradient-to-br from-indigo-500 to-indigo-700 text-white text-sm font-medium rounded-lg hover:from-indigo-400 hover:to-indigo-600 disabled:opacity-40 transition"
+            className="w-full px-4 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 disabled:opacity-40 transition"
           >
             {loading ? "Verifying..." : "Enter"}
           </button>
         </form>
 
-        <p className="text-center text-xs text-[#5C5C6F] mt-6">
+        <p className="text-center text-xs text-gray-500 mt-6">
           Need access?{" "}
-          <a href="mailto:hello@signalry.io" className="text-indigo-400 hover:text-indigo-300 transition">
+          <a href="mailto:hello@signalry.io" className="text-indigo-600 hover:text-indigo-500 transition">
             Request an invite
           </a>
         </p>
@@ -103,8 +103,8 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-          <div className="text-[#5C5C6F] text-sm">Loading...</div>
+        <div className="min-h-screen flex items-center justify-center bg-[#fafafa]">
+          <div className="text-gray-500 text-sm">Loading...</div>
         </div>
       }
     >

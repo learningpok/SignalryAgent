@@ -1,6 +1,6 @@
 /**
  * ChatMessage — shared chat bubble component.
- * Reuses the frosted glass aesthetic from the landing page agent demo.
+ * Light theme matching landing page aesthetic.
  */
 
 import { ReactNode } from "react";
@@ -23,8 +23,8 @@ export default function ChatMessage({ role, children }: ChatMessageProps) {
       <div
         className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold ${
           isAgent
-            ? "bg-gradient-to-br from-indigo-500/20 to-indigo-500/5 text-indigo-300 border border-indigo-500/15"
-            : "bg-white/[0.08] text-gray-400 border border-white/[0.08]"
+            ? "bg-indigo-100 text-indigo-600 border border-indigo-200"
+            : "bg-gray-100 text-gray-500 border border-gray-200"
         }`}
       >
         {isAgent ? "S" : "U"}
@@ -34,8 +34,8 @@ export default function ChatMessage({ role, children }: ChatMessageProps) {
       <div
         className={`px-4 py-3 rounded-xl text-[13.5px] leading-relaxed ${
           isAgent
-            ? "bg-white/[0.04] border border-white/[0.06] rounded-tl-[4px] text-[#8B8B9E]"
-            : "bg-indigo-500/10 border border-indigo-500/[0.12] rounded-tr-[4px] text-[#F0F0F5]"
+            ? "bg-white border border-gray-200 shadow-sm rounded-tl-[4px] text-gray-600"
+            : "bg-indigo-50 border border-indigo-100 rounded-tr-[4px] text-gray-900"
         }`}
       >
         {children}

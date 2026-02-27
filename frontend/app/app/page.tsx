@@ -35,32 +35,32 @@ interface ReviewItem {
 type FilterTab = "pending" | "approved" | "all";
 
 const URGENCY_COLORS: Record<string, string> = {
-  critical: "bg-red-500/15 text-red-300 border-red-500/20",
-  high: "bg-orange-500/15 text-orange-300 border-orange-500/20",
-  medium: "bg-yellow-500/15 text-yellow-300 border-yellow-500/20",
-  low: "bg-white/[0.06] text-gray-500 border-white/[0.06]",
+  critical: "bg-red-100 text-red-700 border-red-200",
+  high: "bg-orange-100 text-orange-700 border-orange-200",
+  medium: "bg-yellow-100 text-yellow-700 border-yellow-200",
+  low: "bg-gray-100 text-gray-500 border-gray-200",
 };
 
 const INTENT_COLORS: Record<string, string> = {
-  exploring: "bg-blue-500/15 text-blue-300 border-blue-500/20",
-  evaluating: "bg-purple-500/15 text-purple-300 border-purple-500/20",
-  requesting: "bg-emerald-500/15 text-emerald-300 border-emerald-500/20",
-  churning: "bg-red-500/15 text-red-300 border-red-500/20",
-  advocating: "bg-cyan-500/15 text-cyan-300 border-cyan-500/20",
+  exploring: "bg-blue-100 text-blue-700 border-blue-200",
+  evaluating: "bg-purple-100 text-purple-700 border-purple-200",
+  requesting: "bg-emerald-100 text-emerald-700 border-emerald-200",
+  churning: "bg-red-100 text-red-700 border-red-200",
+  advocating: "bg-cyan-100 text-cyan-700 border-cyan-200",
 };
 
 function ConfidenceCircle({ value, size = "sm" }: { value: number; size?: "sm" | "md" }) {
   const score = (value * 10).toFixed(1);
   const num = value * 10;
   const ring = num >= 8
-    ? "ring-emerald-400/40 text-emerald-300"
+    ? "ring-emerald-400 text-emerald-700"
     : num >= 6
-    ? "ring-orange-400/40 text-orange-300"
-    : "ring-red-400/40 text-red-300";
+    ? "ring-orange-400 text-orange-700"
+    : "ring-red-400 text-red-700";
   const dims = size === "md" ? "w-10 h-10" : "w-7 h-7";
   const text = size === "md" ? "text-xs" : "text-[10px]";
   return (
-    <div className={`${dims} rounded-full flex items-center justify-center bg-white/[0.06] ring-1 ${ring}`}>
+    <div className={`${dims} rounded-full flex items-center justify-center bg-gray-50 ring-1 ${ring}`}>
       <span className={`${text} font-semibold`}>{score}</span>
     </div>
   );
@@ -116,18 +116,18 @@ export default function SignalViewer() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-[#fafafa] text-gray-900">
       {/* Header */}
-      <header className="border-b border-white/[0.06] bg-[#0a0a0a]/80 backdrop-blur-xl sticky top-0 z-40">
+      <header className="border-b border-gray-200 bg-white/80 backdrop-blur-xl sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-xl font-serif font-semibold tracking-tight">
-              Signal<span className="text-indigo-400">ry</span>
-            </span>
+            <a href="/" className="text-xl font-serif font-semibold tracking-tight hover:opacity-80 transition text-gray-900">
+              Signal<span className="text-indigo-600">ry</span>
+            </a>
             <span className="text-xs text-gray-500 ml-2">Signal Viewer</span>
           </div>
           <div className="flex items-center gap-3">
-            <a href="/chat" className="text-xs text-gray-500 hover:text-gray-300 transition">
+            <a href="/chat" className="text-xs text-gray-500 hover:text-gray-700 transition">
               Copilot
             </a>
             <button
@@ -137,7 +137,7 @@ export default function SignalViewer() {
             >
               {running ? "Running..." : "Run Pipeline"}
             </button>
-            <button onClick={handleLogout} className="text-xs text-gray-500 hover:text-gray-300 transition">
+            <button onClick={handleLogout} className="text-xs text-gray-500 hover:text-gray-700 transition">
               Logout
             </button>
           </div>
@@ -146,15 +146,15 @@ export default function SignalViewer() {
 
       <div className="max-w-7xl mx-auto px-6 py-6">
         {/* Filter Tabs */}
-        <div className="flex gap-1 mb-6 bg-white/[0.03] backdrop-blur-sm rounded-2xl p-1 w-fit border border-white/5">
+        <div className="flex gap-1 mb-6 bg-white rounded-2xl p-1 w-fit border border-gray-200 shadow-sm">
           {(["pending", "approved", "all"] as FilterTab[]).map((tab) => (
             <button
               key={tab}
               onClick={() => { setFilter(tab); setSelected(null); }}
               className={`px-4 py-1.5 rounded-xl text-sm font-medium transition ${
                 filter === tab
-                  ? "bg-white/10 text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]"
-                  : "text-gray-500 hover:text-gray-300"
+                  ? "bg-indigo-600 text-white shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
               }`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -177,19 +177,19 @@ export default function SignalViewer() {
               <button
                 key={item.signal.id}
                 onClick={() => setSelected(item)}
-                className={`w-full text-left px-4 py-3 rounded-2xl border backdrop-blur-sm transition-all duration-150 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] ${
+                className={`w-full text-left px-4 py-3 rounded-xl border transition-all duration-150 shadow-sm ${
                   selected?.signal.id === item.signal.id
-                    ? "bg-white/10 border-white/15"
-                    : "bg-white/[0.03] border-white/5 hover:bg-white/[0.07]"
+                    ? "bg-white border-indigo-300 ring-1 ring-indigo-200"
+                    : "bg-white border-gray-200 hover:border-gray-300 hover:shadow"
                 }`}
               >
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm font-medium text-white">@{item.signal.actor}</span>
+                      <span className="text-sm font-medium text-gray-900">@{item.signal.actor}</span>
                       <span className="text-xs text-gray-500">{item.signal.source}</span>
                     </div>
-                    <p className="text-sm text-gray-400 line-clamp-2">{item.signal.text}</p>
+                    <p className="text-sm text-gray-600 line-clamp-2">{item.signal.text}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     <ConfidenceCircle value={item.classification.confidence} />
@@ -200,7 +200,7 @@ export default function SignalViewer() {
                       {item.classification.intent_stage}
                     </span>
                     {item.classification.momentum_flag && (
-                      <span className="px-2 py-0.5 text-xs font-medium rounded-full border bg-amber-500/15 text-amber-300 border-amber-500/20">
+                      <span className="px-2 py-0.5 text-xs font-medium rounded-full border bg-amber-100 text-amber-700 border-amber-200">
                         momentum
                       </span>
                     )}
@@ -218,27 +218,27 @@ export default function SignalViewer() {
           {/* Detail Panel */}
           <div className="lg:col-span-1">
             {selected ? (
-              <div className="sticky top-24 bg-white/[0.03] backdrop-blur-sm border border-white/5 rounded-2xl p-5 space-y-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
+              <div className="sticky top-24 bg-white border border-gray-200 rounded-xl p-5 space-y-4 shadow-sm">
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-white">@{selected.signal.actor}</span>
+                      <span className="font-medium text-gray-900">@{selected.signal.actor}</span>
                       <span className="text-xs text-gray-500">{selected.signal.source}</span>
                     </div>
                     <ConfidenceCircle value={selected.classification.confidence} size="md" />
                   </div>
-                  <p className="text-sm text-gray-400 leading-relaxed">{selected.signal.text}</p>
+                  <p className="text-sm text-gray-600 leading-relaxed">{selected.signal.text}</p>
                 </div>
 
                 <div className="space-y-3">
                   <div>
                     <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Primary Pain</div>
-                    <div className="text-sm text-white">{selected.classification.primary_pain || "\u2014"}</div>
+                    <div className="text-sm text-gray-900">{selected.classification.primary_pain || "\u2014"}</div>
                   </div>
 
                   <div>
                     <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Recommended Action</div>
-                    <div className="text-sm text-gray-300 bg-white/[0.03] border-l-2 border-orange-400/70 rounded-r-lg px-3 py-2">
+                    <div className="text-sm text-gray-600 bg-gray-50 border-l-2 border-orange-400 rounded-r-lg px-3 py-2">
                       {selected.classification.recommended_action || "\u2014"}
                     </div>
                   </div>
@@ -246,13 +246,13 @@ export default function SignalViewer() {
                   <div>
                     <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Confidence</div>
                     <div className="flex items-center gap-3">
-                      <div className="flex-1 h-1.5 bg-white/[0.06] rounded-full overflow-hidden">
+                      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all"
                           style={{ width: `${(selected.classification.confidence * 100).toFixed(0)}%` }}
                         />
                       </div>
-                      <span className="text-sm text-gray-400 tabular-nums">{(selected.classification.confidence * 100).toFixed(0)}%</span>
+                      <span className="text-sm text-gray-600 tabular-nums">{(selected.classification.confidence * 100).toFixed(0)}%</span>
                     </div>
                   </div>
 
@@ -260,9 +260,9 @@ export default function SignalViewer() {
                     <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">Metrics</div>
                     <div className="grid grid-cols-2 gap-2">
                       {Object.entries(selected.signal.metrics).map(([key, val]) => (
-                        <div key={key} className="bg-white/[0.03] border border-white/5 rounded-xl px-3 py-2">
+                        <div key={key} className="bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
                           <div className="text-xs text-gray-500">{key}</div>
-                          <div className="text-sm font-medium text-gray-200">{val}</div>
+                          <div className="text-sm font-medium text-gray-900">{val}</div>
                         </div>
                       ))}
                     </div>
@@ -276,7 +276,7 @@ export default function SignalViewer() {
                       {selected.classification.intent_stage}
                     </span>
                     {selected.classification.momentum_flag && (
-                      <span className="px-2 py-0.5 text-xs font-medium rounded-full border bg-amber-500/15 text-amber-300 border-amber-500/20">
+                      <span className="px-2 py-0.5 text-xs font-medium rounded-full border bg-amber-100 text-amber-700 border-amber-200">
                         momentum
                       </span>
                     )}
@@ -293,7 +293,7 @@ export default function SignalViewer() {
                     </button>
                     <button
                       onClick={() => discardSignal(selected.signal.id)}
-                      className="flex-1 px-4 py-2 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-gray-400 text-sm font-medium rounded-xl transition"
+                      className="flex-1 px-4 py-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-600 text-sm font-medium rounded-xl transition"
                     >
                       Discard
                     </button>
@@ -302,7 +302,7 @@ export default function SignalViewer() {
 
                 {selected.status !== "pending" && (
                   <div className="text-xs text-gray-500 text-center py-2">
-                    Status: <span className="text-gray-400">{selected.status}</span>
+                    Status: <span className="text-gray-700">{selected.status}</span>
                     {selected.reviewed_at && (
                       <> &middot; {new Date(selected.reviewed_at).toLocaleString()}</>
                     )}
@@ -310,7 +310,7 @@ export default function SignalViewer() {
                 )}
               </div>
             ) : (
-              <div className="sticky top-24 bg-white/[0.03] backdrop-blur-sm border border-white/5 rounded-2xl p-8 text-center text-gray-500 text-sm shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
+              <div className="sticky top-24 bg-white border border-gray-200 rounded-xl p-8 text-center text-gray-500 text-sm shadow-sm">
                 Select a signal to view details
               </div>
             )}

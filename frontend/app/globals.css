@@ -9,6 +9,11 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  background: #fafafa;
+  color: #111827;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -19,10 +24,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: #d1d5db;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #333;
+  background: #9ca3af;
 }
